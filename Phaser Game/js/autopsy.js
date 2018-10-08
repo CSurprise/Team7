@@ -8,10 +8,19 @@ autopsyState.prototype.create = function ()
     game.debug.start();
     this.empty_body = game.add.sprite(0, 0, "body");
 
-    this.heart = new Organ(500, 1000, "heart", [{ x:199, y:0, angle:0, intact: true },{ x:0, y:200, angle:Math.PI/2, intact: true}]);
-    game.add.existing(this.heart);
+    this.organs = [];
+    this.organs.push(new Organ(500, 1000, "heart", [{ x:199, y:0, angle:0, intact:true },{ x:0, y:200, angle:Math.PI/2, intact:true}]));
+    this.organs.push(new Organ(300, 1200, "heart", [{ x:199, y:0, angle:0, intact:true },{ x:0, y:200, angle:Math.PI/2, intact:true}]));
 
-    this.cut = new Phaser.Line(0,0,0,0);
+    for (i = 0; i < this.organs.length; i++) { game.add.existing(this.organs[i]); }
+};
+
+autopsyState.prototype.handle_swipe = function (swipe)
+{
+    for (i = 0; i < this.organs.length; i++)
+    {
+        this.organs[i].check_cut(swipe);
+    }
 };
 
 autopsyState.prototype.update = function ()
@@ -21,12 +30,8 @@ autopsyState.prototype.update = function ()
     swipe_time = game.input.activePointer.duration;
     if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250)
     {
-        this.cut = new Phaser.Line(game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,
-            game.input.activePointer.position.x, game.input.activePointer.position.y);
-        if (this.heart.check_cut(this.cut))
-        {
-            this.heart.inputEnabled = true;
-            this.heart.input.enableDrag(true);
-        }
+        console.log("HANDLING SWIPE");
+        this.handle_swipe(new Phaser.Line(game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,
+            game.input.activePointer.position.x, game.input.activePointer.position.y));
     }   
 };

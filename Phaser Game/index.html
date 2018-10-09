@@ -5,8 +5,8 @@
     <title>AUTOPSY GAME</title>
 	<script type="text/javascript" src="js/lib/phaser.min.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
-    <script type="text/javascript" src="js/autopsy.js"></script>
     <script type="text/javascript" src="js/organ.js"></script>
+	<script type="text/javascript" src="js/gameplay.js"></script>
     <style type="text/css">
         body {
 		    margin: 0 auto;
@@ -18,13 +18,13 @@
 
     <script type="text/javascript">
 
-        let game = new Phaser.Game(1125, 2436, Phaser.AUTO);
+	let game = new Phaser.Game(1125, 2436, Phaser.AUTO);
 
-        game.state.add("Preload", preloadState);    
-        game.state.add("Autopsy", autopsyState);
-        game.state.start("Preload");        
-        
-    </script>
+	game.state.add("Preload", preloadState);
+	game.state.add("Game", gameplayState);
+	game.state.start("Preload");
+
+</script>
 
 </body>
 </html>

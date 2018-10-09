@@ -6,11 +6,14 @@ let gameplayState = function()
 
 gameplayState.prototype.preload = function()
 {
-  // load assets needed for the preloader here 
+  // load assets needed for the preloader here
 };
 
+
 gameplayState.prototype.create = function()
-{ 
+{
+
+
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -78,10 +81,19 @@ gameplayState.prototype.create = function()
 
     //  Our controls.
     this.cursors = game.input.keyboard.createCursorKeys();
+
+    let g = new entities(200, 200, 'placeHolder');
+		g.placeSprite(game); 
+
+
+
+
+
+
 };
 
 gameplayState.prototype.update = function()
-{ 
+{
     //  Collide the this.player and the this.stars with the this.platforms
     game.physics.arcade.collide(this.player, this.platforms);
     game.physics.arcade.collide(this.stars, this.platforms);
@@ -114,17 +126,17 @@ gameplayState.prototype.update = function()
 
         this.player.frame = 4;
     }
-    
+
     //  Allow the this.player to jump if they are touching the ground.
     if (this.cursors.up.isDown && this.player.body.touching.down)
     {
         this.player.body.velocity.y = -350;
     }
- 
+
 };
 
 gameplayState.prototype.collectStar = function(player, star) {
-    
+
     // Removes the star from the screen
     star.kill();
 

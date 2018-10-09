@@ -7,6 +7,7 @@ let preloadState = function()
 //when Phaser creates an instance of this state, we want it to
 preloadState.prototype.preload = function()
 {
+    game.load.image('placeHolder', 'assets/rect.png'); //Place Holder for scene objects
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
@@ -22,4 +23,3 @@ preloadState.prototype.update = function()
 {
 
 };
-

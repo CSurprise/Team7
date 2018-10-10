@@ -19,6 +19,7 @@ gameplayState.prototype.create = function(){
 	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
 	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
 	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
+	this.docIcon = game.add.sprite(900, 100, "docIcon");
 
 	//add surgery objects
 	this.surgeryObjects = [];

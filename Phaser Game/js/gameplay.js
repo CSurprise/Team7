@@ -9,7 +9,7 @@ gameplayState.prototype.create = function(){
 	//important variables
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
-	this.docOpen = false; //is the document open
+	this.reading = "none"; //what are we reading
 
 	//add UI sprites and backgrounds
 	this.surgery = game.add.sprite(0,0,"surgery");
@@ -36,6 +36,7 @@ gameplayState.prototype.create = function(){
 	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
 	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
 	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
+	this.library
 
 	//add museum objects
 	this.museumObjects = [];
@@ -124,22 +125,22 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
-	if (!this.docOpen) { this.loadSurgery(); }
+	if (this.reading == "none") { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (!this.docOpen) { this.loadLibrary(); }
+	if (this.reading == "none") { this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
-	if (!this.docOpen) { this.loadMuseum(); }
+	if (this.reading == "none") { this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
-	if (!this.docOpen) {
+	if (this.reading == "none") {
 		this.document.visible = true;
-		this.docOpen = true;
+		this.reading = "document";
 	}
-	else if (this.docOpen) {
+	else if (this.reading == "document") {
 		this.document.visible = false;
-		this.docOpen = false;
+		this.reading = "none";
 	}
 }
 

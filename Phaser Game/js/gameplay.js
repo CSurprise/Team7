@@ -124,13 +124,13 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
-	this.loadSurgery();
+	if (!this.docOpen) { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	this.loadLibrary();
+	if (!this.docOpen) { this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
-	this.loadMuseum();
+	if (!this.docOpen) { this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
 	if (!this.docOpen) {

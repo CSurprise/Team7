@@ -16,7 +16,7 @@ gameplayState.prototype.create = function(){
 	this.museum = game.add.sprite(0,0,"museum");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
-	this.star1 = game.add.sprite(200, 100, "star1"); this.star1.scale.set(3,3);
+	this.star1 = game.add.sprite(200, 100, "star2"); this.star1.scale.set(3,3);
 	this.star2 = game.add.sprite(400, 100, "star2"); this.star2.scale.set(3,3);
 	this.star3 = game.add.sprite(600, 100, "star3"); this.star3.scale.set(3,3);
 

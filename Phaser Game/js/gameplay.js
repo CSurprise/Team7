@@ -36,7 +36,6 @@ gameplayState.prototype.create = function(){
 	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
 	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
 	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
-	this.library
 
 	//add museum objects
 	this.museumObjects = [];

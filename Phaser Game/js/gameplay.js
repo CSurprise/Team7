@@ -43,11 +43,11 @@ gameplayState.prototype.create = function(){
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
-	this.surgeryIcon.events.onInputDown.add(this.surgeryIconTap, this);
+	this.surgeryIcon.events.onInputUp.add(this.surgeryIconTap, this);
 	this.libraryIcon.inputEnabled = true;
-	this.libraryIcon.events.onInputDown.add(this.libraryIconTap, this);
+	this.libraryIcon.events.onInputUp.add(this.libraryIconTap, this);
 	this.museumIcon.inputEnabled = true;
-	this.museumIcon.events.onInputDown.add(this.museumIconTap, this);
+	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 

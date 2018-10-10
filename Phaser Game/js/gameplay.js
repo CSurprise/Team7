@@ -16,9 +16,9 @@ gameplayState.prototype.create = function(){
 	this.museum = game.add.sprite(0,0,"museum");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
-	this.star1 = game.add.sprite(200, 100, "star2"); this.star1.scale.set(3,3);
-	this.star2 = game.add.sprite(400, 100, "star2"); this.star2.scale.set(3,3);
-	this.star3 = game.add.sprite(600, 100, "star3"); this.star3.scale.set(3,3);
+	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
+	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
+	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -29,18 +29,21 @@ gameplayState.prototype.create = function(){
 
 	//add library objects
 	this.libraryObjects = [];
-	this.libraryObjects.push(game.add.sprite(300,500,"book"));
+	this.libraryObjects.push(game.add.sprite(300,500,"book1"));
+	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
+	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
+	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
 
 	//add museum objects
 	this.museumObjects = [];
 
 	//allow input for buttons
-	this.star1.inputEnabled = true;
-	this.star1.events.onInputDown.add(this.star1Tap, this);
-	this.star2.inputEnabled = true;
-	this.star2.events.onInputDown.add(this.star2Tap, this);
-	this.star3.inputEnabled = true;
-	this.star3.events.onInputDown.add(this.star3Tap, this);
+	this.surgeryIcon.inputEnabled = true;
+	this.surgeryIcon.events.onInputDown.add(this.surgeryIconTap, this);
+	this.libraryIcon.inputEnabled = true;
+	this.libraryIcon.events.onInputDown.add(this.libraryIconTap, this);
+	this.museumIcon.inputEnabled = true;
+	this.museumIcon.events.onInputDown.add(this.museumIconTap, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -113,13 +116,13 @@ gameplayState.prototype.loadMuseum = function(){
 }
 
 //button functions
-gameplayState.prototype.star1Tap = function(){
+gameplayState.prototype.surgeryIconTap = function(){
 	this.loadSurgery();
 }
-gameplayState.prototype.star2Tap = function(){
+gameplayState.prototype.libraryIconTap = function(){
 	this.loadLibrary();
 }
-gameplayState.prototype.star3Tap = function(){
+gameplayState.prototype.museumIconTap = function(){
 	this.loadMuseum();
 }
 

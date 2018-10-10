@@ -66,6 +66,18 @@ gameplayState.prototype.create = function(){
 
 gameplayState.prototype.update = function(){
 
+	//disable organ input while reading
+	if (this.reading == "none"){
+		for (var i = 0; i < this.surgeryObjects.length; i++){
+			this.surgeryObjects[i].inputEnabled = true;
+		}
+	}
+	else{
+		for (var i = 0; i < this.surgeryObjects.length; i++){
+			this.surgeryObjects[i].inputEnabled = false;
+		}
+	}
+	
 };
 
 //switches to the surgery location

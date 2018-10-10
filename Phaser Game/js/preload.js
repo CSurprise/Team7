@@ -10,6 +10,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("surgery", "assets/surgery.png");
 	game.load.image("library", "assets/library.png");
 	game.load.image("museum", "assets/museum.png");
+	game.load.image("document", "assets/document.png");
 
 	//UI sprites
 	game.load.image("inventory", "assets/inventory.png");

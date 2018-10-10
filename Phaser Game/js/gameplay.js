@@ -9,11 +9,13 @@ gameplayState.prototype.create = function(){
 	//important variables
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
+	this.docOpen = false; //is the document open
 
 	//add UI sprites and backgrounds
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
+	this.document = game.add.sprite(100, 500, "document");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
 	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
@@ -45,6 +47,8 @@ gameplayState.prototype.create = function(){
 	this.libraryIcon.events.onInputDown.add(this.libraryIconTap, this);
 	this.museumIcon.inputEnabled = true;
 	this.museumIcon.events.onInputDown.add(this.museumIconTap, this);
+	this.docIcon.inputEnabled = true;
+	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -54,6 +58,8 @@ gameplayState.prototype.create = function(){
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
+	game.world.bringToTop(this.document);
+	this.document.visible = false;
 	this.loadSurgery();
 };
 
@@ -125,6 +131,16 @@ gameplayState.prototype.libraryIconTap = function(){
 }
 gameplayState.prototype.museumIconTap = function(){
 	this.loadMuseum();
+}
+gameplayState.prototype.docIconTap = function(){
+	if (!this.docOpen) {
+		this.document.visible = true;
+		this.docOpen = true;
+	}
+	else if (this.docOpen) {
+		this.document.visible = false;
+		this.docOpen = false;
+	}
 }
 
 //adds a surgeryObject to inventory

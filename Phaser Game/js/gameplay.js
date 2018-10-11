@@ -9,16 +9,19 @@ gameplayState.prototype.create = function(){
 	//important variables
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
+	this.reading = "none"; //what are we reading
 
 	//add UI sprites and backgrounds
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
+	this.document = game.add.sprite(100, 500, "document");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
-	this.star1 = game.add.sprite(200, 100, "star1"); this.star1.scale.set(3,3);
-	this.star2 = game.add.sprite(400, 100, "star2"); this.star2.scale.set(3,3);
-	this.star3 = game.add.sprite(600, 100, "star3"); this.star3.scale.set(3,3);
+	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
+	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
+	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
+	this.docIcon = game.add.sprite(900, 100, "docIcon");
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -29,18 +32,24 @@ gameplayState.prototype.create = function(){
 
 	//add library objects
 	this.libraryObjects = [];
-	this.libraryObjects.push(game.add.sprite(300,500,"book"));
+	this.libraryObjects.push(game.add.sprite(300,500,"book1"));
+	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
+	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
+	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
+	this.library
 
 	//add museum objects
 	this.museumObjects = [];
 
 	//allow input for buttons
-	this.star1.inputEnabled = true;
-	this.star1.events.onInputDown.add(this.star1Tap, this);
-	this.star2.inputEnabled = true;
-	this.star2.events.onInputDown.add(this.star2Tap, this);
-	this.star3.inputEnabled = true;
-	this.star3.events.onInputDown.add(this.star3Tap, this);
+	this.surgeryIcon.inputEnabled = true;
+	this.surgeryIcon.events.onInputDown.add(this.surgeryIconTap, this);
+	this.libraryIcon.inputEnabled = true;
+	this.libraryIcon.events.onInputDown.add(this.libraryIconTap, this);
+	this.museumIcon.inputEnabled = true;
+	this.museumIcon.events.onInputDown.add(this.museumIconTap, this);
+	this.docIcon.inputEnabled = true;
+	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -50,6 +59,8 @@ gameplayState.prototype.create = function(){
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
+	game.world.bringToTop(this.document);
+	this.document.visible = false;
 	this.loadSurgery();
 };
 
@@ -113,14 +124,24 @@ gameplayState.prototype.loadMuseum = function(){
 }
 
 //button functions
-gameplayState.prototype.star1Tap = function(){
-	this.loadSurgery();
+gameplayState.prototype.surgeryIconTap = function(){
+	if (this.reading == "none") { this.loadSurgery(); }
 }
-gameplayState.prototype.star2Tap = function(){
-	this.loadLibrary();
+gameplayState.prototype.libraryIconTap = function(){
+	if (this.reading == "none") { this.loadLibrary(); }
 }
-gameplayState.prototype.star3Tap = function(){
-	this.loadMuseum();
+gameplayState.prototype.museumIconTap = function(){
+	if (this.reading == "none") { this.loadMuseum(); }
+}
+gameplayState.prototype.docIconTap = function(){
+	if (this.reading == "none") {
+		this.document.visible = true;
+		this.reading = "document";
+	}
+	else if (this.reading == "document") {
+		this.document.visible = false;
+		this.reading = "none";
+	}
 }
 
 //adds a surgeryObject to inventory

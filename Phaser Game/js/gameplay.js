@@ -10,6 +10,7 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
+	this.booksheet = null; //the current booksheet that is open
 
 	//background and UI sprites
 	this.surgery = game.add.sprite(0,0,"surgery");
@@ -24,18 +25,20 @@ gameplayState.prototype.create = function(){
 
 	//windows sprites
 	this.document = game.add.sprite(100, 500, "document");
-	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
 	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
 	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
 	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
 	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
+	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
+	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
-	this.windowSprites.push(this.star);
 	this.windowSprites.push(this.book1sheet);
 	this.windowSprites.push(this.book2sheet);
 	this.windowSprites.push(this.book3sheet);
 	this.windowSprites.push(this.book4sheet);
+	this.windowSprites.push(this.star);
+	this.windowSprites.push(this.rightArrow);
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -65,6 +68,8 @@ gameplayState.prototype.create = function(){
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 	this.star.inputEnabled = true;
 	this.star.events.onInputUp.add(this.close, this);
+	this.rightArrow.inputEnabled = true;
+	this.rightArrow.events.onInputUp.add(this.nextPage, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -203,6 +208,7 @@ gameplayState.prototype.open = function(sprite, pointer){
 	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
 	this.booksheet.visible = true;
 	this.star.visible = true;
+	this.rightArrow.visible = true;
 	this.reading = "book";
 }
 
@@ -212,4 +218,9 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
+}
+
+//turns to the next page in an opened book
+gameplayState.prototype.nextPage = function(sprite, pointer){
+	this.booksheet.frame++;
 }

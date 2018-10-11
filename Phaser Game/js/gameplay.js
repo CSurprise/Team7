@@ -31,6 +31,7 @@ gameplayState.prototype.create = function(){
 	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
 	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
 	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
+	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
 	this.windowSprites.push(this.book1sheet);
@@ -39,6 +40,7 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.book4sheet);
 	this.windowSprites.push(this.star);
 	this.windowSprites.push(this.rightArrow);
+	this.windowSprites.push(this.leftArrow);
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -70,6 +72,8 @@ gameplayState.prototype.create = function(){
 	this.star.events.onInputUp.add(this.close, this);
 	this.rightArrow.inputEnabled = true;
 	this.rightArrow.events.onInputUp.add(this.nextPage, this);
+	this.leftArrow.inputEnabled = true;
+	this.leftArrow.events.onInputUp.add(this.prevPage, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -206,9 +210,11 @@ gameplayState.prototype.open = function(sprite, pointer){
 	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
 	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
 	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
+	this.booksheet.frame = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.star.visible = true;
 	this.rightArrow.visible = true;
+	this.leftArrow.visible = true;
 	this.reading = "book";
 }
 
@@ -222,5 +228,14 @@ gameplayState.prototype.close = function(sprite, pointer){
 
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
-	this.booksheet.frame++;
+	if (this.booksheet.frame < this.booksheet.animations.frameTotal - 1){
+		this.booksheet.frame++;
+	}
+}
+
+//turns to the previous page in an opened book
+gameplayState.prototype.prevPage = function(sprite, pointer){
+	if (this.booksheet.frame > 0){
+		this.booksheet.frame--;
+	}
 }

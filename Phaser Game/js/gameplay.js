@@ -24,7 +24,7 @@ gameplayState.prototype.create = function(){
 
 	//windows sprites
 	this.document = game.add.sprite(100, 500, "document");
-	this.star = game.add.sprite(200,500,"star");
+	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
 	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
@@ -195,6 +195,7 @@ gameplayState.prototype.open = function(sprite, pointer, n){
 		this.booksheet = this.book1sheet;
 	}
 	this.booksheet.visible = true;
+	this.star.visible = true;
 	this.reading = "book";
 }
 

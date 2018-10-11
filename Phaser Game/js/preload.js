@@ -19,7 +19,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("libraryIcon", "assets/libraryIcon.png");
 	game.load.image("museumIcon", "assets/museumIcon.png");
 	game.load.image("docIcon", "assets/docIcon.png");
-	game.load.image("star", "asset/star.png")
+	game.load.image("star", "assets/star.png")
 
 	//object sprites
 	game.load.image("heart", "assets/heart.png");

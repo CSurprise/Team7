@@ -57,6 +57,8 @@ gameplayState.prototype.create = function(){
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
+	this.star.inputEnabled = true;
+	this.star.events.onInputUp.add(this.close, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -167,11 +169,8 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
+		this.star.visible = true;
 		this.reading = "document";
-	}
-	else if (this.reading == "document") {
-		this.document.visible = false;
-		this.reading = "none";
 	}
 }
 
@@ -199,3 +198,10 @@ gameplayState.prototype.open = function(sprite, pointer, n){
 	this.reading = "book";
 }
 
+//close all window sprites
+gameplayState.prototype.close = function(sprite, pointer){
+	for (var i = 0; i < this.windowSprites.length; i++){
+		this.windowSprites[i].visible = false;
+	}
+	this.reading = "none";
+}

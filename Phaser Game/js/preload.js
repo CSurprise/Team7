@@ -37,8 +37,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("jar3", "assets/jar3.png");
 	game.load.image("jar4", "assets/jar4.png");
 
-	//spritesheets
+	//spritesheets and jars
 	game.load.spritesheet("book1sheet", "assets/book1sheet.png", 32, 48);
+	game.load.image("viewjar1", "assets/viewjar1.png");
 };
 
 preloadState.prototype.create = function(){

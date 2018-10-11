@@ -19,6 +19,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("libraryIcon", "assets/libraryIcon.png");
 	game.load.image("museumIcon", "assets/museumIcon.png");
 	game.load.image("docIcon", "assets/docIcon.png");
+	game.load.image("star", "asset/star.png")
 
 	//object sprites
 	game.load.image("heart", "assets/heart.png");
@@ -29,6 +30,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("book2", "assets/book2.png");
 	game.load.image("book3", "assets/book3.png");
 	game.load.image("book4", "assets/book4.png");
+
+	//spritesheets
+	game.load.spritesheet("book1sheet", "assets/book1sheet.png", 32, 48);
 };
 
 preloadState.prototype.create = function(){

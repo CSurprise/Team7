@@ -11,17 +11,25 @@ gameplayState.prototype.create = function(){
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
 
-	//add UI sprites and backgrounds
+	//background and UI sprites
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
-	this.document = game.add.sprite(100, 500, "document");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
 	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
 	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
 	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
 	this.docIcon = game.add.sprite(900, 100, "docIcon");
+
+	//windows sprites
+	this.document = game.add.sprite(100, 500, "document");
+	this.star = game.add.sprite(200,500,"star");
+	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
+	this.windowSprites = [];
+	this.windowSprites.push(this.document);
+	this.windowSprites.push(this.star);
+	this.windowSprites.push(this.book1sheet);
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -58,22 +66,34 @@ gameplayState.prototype.create = function(){
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
-	game.world.bringToTop(this.document);
-	this.document.visible = false;
+	//allow input for libraryObjects
+	for (var i = 0; i < this.libraryObjects.length; i++){
+		this.libraryObjects.inputEnabled = true;
+		this.libraryObjects[i].events.onInputUp.add(this.open, this, i+1); //i+1 is the book number
+	}
+
+	//bring window sprites to front and turn invisible
+	for (var i = 0; i < this.windowSprites.length; i++){
+		game.world.bringToTop(this.windowSprites[i]);
+		this.windowSprites[i].visible = false;
+	}
+
 	this.loadSurgery();
 };
 
 gameplayState.prototype.update = function(){
 
-	//disable organ input while reading
+	//disable surgeryObjects and libraryObjects input while reading
 	if (this.reading == "none"){
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = true;
+			this.libraryObjects[i].inputEnabled = true;
 		}
 	}
 	else{
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = false;
+			this.libraryObjects[i].inputEnabled = false;
 		}
 	}
 	
@@ -167,5 +187,14 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 			sprite.input.draggable = false;
 		}
 	}
+}
+
+//opens the book so that we can read it
+gameplayState.prototype.open = function(sprite, pointer, n){
+	if (n == 1){
+		this.booksheet = this.book1sheet;
+	}
+	this.booksheet.visible = true;
+	this.reading = "book";
 }
 

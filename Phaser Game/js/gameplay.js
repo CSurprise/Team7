@@ -10,18 +10,37 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
+	this.booksheet = null; //the current booksheet that is open
 
-	//add UI sprites and backgrounds
+	//background and UI sprites
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
-	this.document = game.add.sprite(100, 500, "document");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
 	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
 	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
 	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
 	this.docIcon = game.add.sprite(900, 100, "docIcon");
+
+	//windows sprites
+	this.document = game.add.sprite(100, 500, "document");
+	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
+	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
+	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
+	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
+	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
+	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
+	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
+	this.windowSprites = [];
+	this.windowSprites.push(this.document);
+	this.windowSprites.push(this.book1sheet);
+	this.windowSprites.push(this.book2sheet);
+	this.windowSprites.push(this.book3sheet);
+	this.windowSprites.push(this.book4sheet);
+	this.windowSprites.push(this.star);
+	this.windowSprites.push(this.rightArrow);
+	this.windowSprites.push(this.leftArrow);
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -36,20 +55,25 @@ gameplayState.prototype.create = function(){
 	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
 	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
 	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
-	this.library
 
 	//add museum objects
 	this.museumObjects = [];
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
-	this.surgeryIcon.events.onInputDown.add(this.surgeryIconTap, this);
+	this.surgeryIcon.events.onInputUp.add(this.surgeryIconTap, this);
 	this.libraryIcon.inputEnabled = true;
-	this.libraryIcon.events.onInputDown.add(this.libraryIconTap, this);
+	this.libraryIcon.events.onInputUp.add(this.libraryIconTap, this);
 	this.museumIcon.inputEnabled = true;
-	this.museumIcon.events.onInputDown.add(this.museumIconTap, this);
+	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
+	this.star.inputEnabled = true;
+	this.star.events.onInputUp.add(this.close, this);
+	this.rightArrow.inputEnabled = true;
+	this.rightArrow.events.onInputUp.add(this.nextPage, this);
+	this.leftArrow.inputEnabled = true;
+	this.leftArrow.events.onInputUp.add(this.prevPage, this);
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -59,22 +83,34 @@ gameplayState.prototype.create = function(){
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
-	game.world.bringToTop(this.document);
-	this.document.visible = false;
+	//allow input for libraryObjects
+	for (var i = 0; i < this.libraryObjects.length; i++){
+		this.libraryObjects.inputEnabled = true;
+		this.libraryObjects[i].events.onInputUp.add(this.open, this);
+	}
+
+	//bring window sprites to front and turn invisible
+	for (var i = 0; i < this.windowSprites.length; i++){
+		game.world.bringToTop(this.windowSprites[i]);
+		this.windowSprites[i].visible = false;
+	}
+
 	this.loadSurgery();
 };
 
 gameplayState.prototype.update = function(){
 
-	//disable organ input while reading
+	//disable surgeryObjects and libraryObjects input while reading
 	if (this.reading == "none"){
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = true;
+			this.libraryObjects[i].inputEnabled = true;
 		}
 	}
 	else{
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = false;
+			this.libraryObjects[i].inputEnabled = false;
 		}
 	}
 	
@@ -148,11 +184,8 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
+		this.star.visible = true;
 		this.reading = "document";
-	}
-	else if (this.reading == "document") {
-		this.document.visible = false;
-		this.reading = "none";
 	}
 }
 
@@ -170,3 +203,39 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 	}
 }
 
+//opens a book so that we can read it
+gameplayState.prototype.open = function(sprite, pointer){
+	this.booksheet = null;
+	if (sprite == this.libraryObjects[0]){ this.booksheet = this.book1sheet; }
+	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
+	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
+	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
+	this.booksheet.frame = 0; //set book to first page
+	this.booksheet.visible = true;
+	this.star.visible = true;
+	this.rightArrow.visible = true;
+	this.leftArrow.visible = true;
+	this.reading = "book";
+}
+
+//close all window sprites
+gameplayState.prototype.close = function(sprite, pointer){
+	for (var i = 0; i < this.windowSprites.length; i++){
+		this.windowSprites[i].visible = false;
+	}
+	this.reading = "none";
+}
+
+//turns to the next page in an opened book
+gameplayState.prototype.nextPage = function(sprite, pointer){
+	if (this.booksheet.frame < this.booksheet.animations.frameTotal - 1){
+		this.booksheet.frame++;
+	}
+}
+
+//turns to the previous page in an opened book
+gameplayState.prototype.prevPage = function(sprite, pointer){
+	if (this.booksheet.frame > 0){
+		this.booksheet.frame--;
+	}
+}

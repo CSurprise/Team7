@@ -29,6 +29,10 @@ gameplayState.prototype.create = function(){
 	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
 	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
 	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
+	this.viewjar1 = game.add.sprite(100, 500, "viewjar1");
+	this.viewjar2 = game.add.sprite(100, 500, "viewjar1");
+	this.viewjar3 = game.add.sprite(100, 500, "viewjar1");
+	this.viewjar4 = game.add.sprite(100, 500, "viewjar1");
 	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
 	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
 	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
@@ -38,6 +42,10 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.book2sheet);
 	this.windowSprites.push(this.book3sheet);
 	this.windowSprites.push(this.book4sheet);
+	this.windowSprites.push(this.viewjar1);
+	this.windowSprites.push(this.viewjar2);
+	this.windowSprites.push(this.viewjar3);
+	this.windowSprites.push(this.viewjar4);
 	this.windowSprites.push(this.star);
 	this.windowSprites.push(this.rightArrow);
 	this.windowSprites.push(this.leftArrow);
@@ -58,6 +66,10 @@ gameplayState.prototype.create = function(){
 
 	//add museum objects
 	this.museumObjects = [];
+	this.museumObjects.push(game.add.sprite(300,500,"jar1"));
+	this.museumObjects.push(game.add.sprite(300,800,"jar2"));
+	this.museumObjects.push(game.add.sprite(300,1100,"jar3"));
+	this.museumObjects.push(game.add.sprite(300,1400,"jar4"));
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
@@ -78,15 +90,21 @@ gameplayState.prototype.create = function(){
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
 		this.surgeryObjects[i].inventory = false;
-		this.surgeryObjects[i].inputEnabled = true; //TODO: remove this
-		this.surgeryObjects[i].input.enableDrag(true); //TODO: remove this
+		this.surgeryObjects[i].inputEnabled = true;
+		this.surgeryObjects[i].input.enableDrag(true);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
 	//allow input for libraryObjects
 	for (var i = 0; i < this.libraryObjects.length; i++){
-		this.libraryObjects.inputEnabled = true;
+		this.libraryObjects[i].inputEnabled = true;
 		this.libraryObjects[i].events.onInputUp.add(this.open, this);
+	}
+
+	//allow input for museumObjects
+	for (var i = 0; i < this.museumObjects.length; i++){
+		this.museumObjects[i].inputEnabled = true;
+		this.museumObjects[i].events.onInputUp.add(this.view, this);
 	}
 
 	//bring window sprites to front and turn invisible
@@ -100,20 +118,29 @@ gameplayState.prototype.create = function(){
 
 gameplayState.prototype.update = function(){
 
-	//disable surgeryObjects and libraryObjects input while reading
+	//disable in game objects input while reading
 	if (this.reading == "none"){
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = true;
+		}
+		for (var i = 0; i < this.libraryObjects.length; i++){
 			this.libraryObjects[i].inputEnabled = true;
+		}
+		for (var i = 0; i < this.museumObjects.length; i++){
+			this.museumObjects[i].inputEnabled = true;
 		}
 	}
 	else{
 		for (var i = 0; i < this.surgeryObjects.length; i++){
 			this.surgeryObjects[i].inputEnabled = false;
+		}
+		for (var i = 0; i < this.libraryObjects.length; i++){
 			this.libraryObjects[i].inputEnabled = false;
 		}
+		for (var i = 0; i < this.museumObjects.length; i++){
+			this.museumObjects[i].inputEnabled = false;
+		}
 	}
-	
 };
 
 //switches to the surgery location
@@ -129,7 +156,7 @@ gameplayState.prototype.loadSurgery = function(){
 		this.libraryObjects[i].visible = false;
 	}
 	for (var i = 0; i < this.museumObjects.length; i++){
-		this.musuemObjects[i].visible = false;
+		this.museumObjects[i].visible = false;
 	}
 }
 
@@ -166,7 +193,7 @@ gameplayState.prototype.loadMuseum = function(){
 	for (var i = 0; i < this.libraryObjects.length; i++){
 		this.libraryObjects[i].visible = false;
 	}
-	for (var i = 0; i < this.musuemObjects.length; i++){
+	for (var i = 0; i < this.museumObjects.length; i++){
 		this.museumObjects[i].visible = true;
 	}
 }
@@ -238,4 +265,16 @@ gameplayState.prototype.prevPage = function(sprite, pointer){
 	if (this.booksheet.frame > 0){
 		this.booksheet.frame--;
 	}
+}
+
+//view jar
+gameplayState.prototype.view = function(sprite, pointer){
+	this.viewjar = null;
+	if (sprite == this.museumObjects[0]){ this.viewjar = this.viewjar1; }
+	else if (sprite == this.museumObjects[1]){ this.viewjar = this.viewjar2; }
+	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; }
+	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; }
+	this.viewjar.visible = true;
+	this.star.visible = true;
+	this.reading = "jar";
 }

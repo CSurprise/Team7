@@ -32,6 +32,10 @@ preloadState.prototype.preload = function(){
 	game.load.image("book2", "assets/book2.png");
 	game.load.image("book3", "assets/book3.png");
 	game.load.image("book4", "assets/book4.png");
+	game.load.image("jar1", "assets/jar1.png");
+	game.load.image("jar2", "assets/jar2.png");
+	game.load.image("jar3", "assets/jar3.png");
+	game.load.image("jar4", "assets/jar4.png");
 
 	//spritesheets
 	game.load.spritesheet("book1sheet", "assets/book1sheet.png", 32, 48);

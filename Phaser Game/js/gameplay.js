@@ -58,6 +58,10 @@ gameplayState.prototype.create = function(){
 
 	//add museum objects
 	this.museumObjects = [];
+	this.museumObjects.push(game.add.sprite(300,500,"jar1"));
+	this.museumObjects.push(game.add.sprite(300,800,"jar2"));
+	this.museumObjects.push(game.add.sprite(300,1100,"jar3"));
+	this.museumObjects.push(game.add.sprite(300,1400,"jar4"));
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
@@ -88,6 +92,9 @@ gameplayState.prototype.create = function(){
 		this.libraryObjects.inputEnabled = true;
 		this.libraryObjects[i].events.onInputUp.add(this.open, this);
 	}
+
+	//allow input for museumObjects
+	
 
 	//bring window sprites to front and turn invisible
 	for (var i = 0; i < this.windowSprites.length; i++){
@@ -129,7 +136,7 @@ gameplayState.prototype.loadSurgery = function(){
 		this.libraryObjects[i].visible = false;
 	}
 	for (var i = 0; i < this.museumObjects.length; i++){
-		this.musuemObjects[i].visible = false;
+		this.museumObjects[i].visible = false;
 	}
 }
 
@@ -166,7 +173,7 @@ gameplayState.prototype.loadMuseum = function(){
 	for (var i = 0; i < this.libraryObjects.length; i++){
 		this.libraryObjects[i].visible = false;
 	}
-	for (var i = 0; i < this.musuemObjects.length; i++){
+	for (var i = 0; i < this.museumObjects.length; i++){
 		this.museumObjects[i].visible = true;
 	}
 }

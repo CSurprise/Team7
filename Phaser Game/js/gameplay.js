@@ -71,7 +71,7 @@ gameplayState.prototype.create = function(){
 	//allow input for libraryObjects
 	for (var i = 0; i < this.libraryObjects.length; i++){
 		this.libraryObjects.inputEnabled = true;
-		this.libraryObjects[i].events.onInputUp.add(this.open, this, i+1); //i+1 is the book number
+		this.libraryObjects[i].events.onInputUp.add(this.open, this);
 	}
 
 	//bring window sprites to front and turn invisible
@@ -188,14 +188,14 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 	}
 }
 
-//opens the book so that we can read it
-gameplayState.prototype.open = function(sprite, pointer, n){
-	if (n == 1){
+//opens a book so that we can read it
+gameplayState.prototype.open = function(sprite, pointer){
+	if (sprite == this.libraryObjects[0]){
 		this.booksheet = this.book1sheet;
+		this.booksheet.visible = true;
+		this.star.visible = true;
+		this.reading = "book";
 	}
-	this.booksheet.visible = true;
-	this.star.visible = true;
-	this.reading = "book";
 }
 
 //close all window sprites

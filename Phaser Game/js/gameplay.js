@@ -26,10 +26,16 @@ gameplayState.prototype.create = function(){
 	this.document = game.add.sprite(100, 500, "document");
 	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
 	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
+	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
+	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
+	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
 	this.windowSprites.push(this.star);
 	this.windowSprites.push(this.book1sheet);
+	this.windowSprites.push(this.book2sheet);
+	this.windowSprites.push(this.book3sheet);
+	this.windowSprites.push(this.book4sheet);
 
 	//add surgery objects
 	this.surgeryObjects = [];
@@ -190,12 +196,14 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 
 //opens a book so that we can read it
 gameplayState.prototype.open = function(sprite, pointer){
-	if (sprite == this.libraryObjects[0]){
-		this.booksheet = this.book1sheet;
-		this.booksheet.visible = true;
-		this.star.visible = true;
-		this.reading = "book";
-	}
+	this.booksheet = null;
+	if (sprite == this.libraryObjects[0]){ this.booksheet = this.book1sheet; }
+	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
+	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
+	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
+	this.booksheet.visible = true;
+	this.star.visible = true;
+	this.reading = "book";
 }
 
 //close all window sprites

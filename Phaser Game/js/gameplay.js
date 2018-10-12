@@ -10,7 +10,6 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
-	this.booksheet = null; //the current booksheet that is open
 
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");
@@ -26,26 +25,18 @@ gameplayState.prototype.create = function(){
 
 	//window sprites
 	this.document = game.add.sprite(0, 0, "document");
-	this.book1sheet = game.add.sprite(0, 0, "book1sheet"); this.book1sheet.scale.set(30,30);
-	this.book2sheet = game.add.sprite(0, 0, "book1sheet"); this.book2sheet.scale.set(30,30);
-	this.book3sheet = game.add.sprite(0, 0, "book1sheet"); this.book3sheet.scale.set(30,30);
-	this.book4sheet = game.add.sprite(0, 0, "book1sheet"); this.book4sheet.scale.set(30,30);
-	this.book5sheet = game.add.sprite(0, 0, "book1sheet"); this.book5sheet.scale.set(30,30);
+	this.booksheet = game.add.sprite(0, 0, "booksheet");
 	this.viewjar1 = game.add.sprite(0, 0, "viewjar1");
 	this.viewjar2 = game.add.sprite(0, 0, "viewjar2");
 	this.viewjar3 = game.add.sprite(0, 0, "viewjar3");
 	this.viewjar4 = game.add.sprite(0, 0, "viewjar4");
 	this.viewjar5 = game.add.sprite(0, 0, "viewjar5");
-	this.closeX = game.add.sprite(900,700,"closeX");
-	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
-	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
+	this.closeX = game.add.sprite(910,430,"closeX");
+	this.rightArrow = game.add.sprite(850,1800,"rightArrow");
+	this.leftArrow = game.add.sprite(150,1800,"leftArrow");
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
-	this.windowSprites.push(this.book1sheet);
-	this.windowSprites.push(this.book2sheet);
-	this.windowSprites.push(this.book3sheet);
-	this.windowSprites.push(this.book4sheet);
-	this.windowSprites.push(this.book5sheet);
+	this.windowSprites.push(this.booksheet);
 	this.windowSprites.push(this.viewjar1);
 	this.windowSprites.push(this.viewjar2);
 	this.windowSprites.push(this.viewjar3);
@@ -88,13 +79,16 @@ gameplayState.prototype.create = function(){
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
-	// add doc transition arrows
+
+	//windowsprite buttons
 	this.closeX.inputEnabled = true;
 	this.closeX.events.onInputUp.add(this.close, this);
 	this.rightArrow.inputEnabled = true;
 	this.rightArrow.events.onInputUp.add(this.nextPage, this);
 	this.leftArrow.inputEnabled = true;
 	this.leftArrow.events.onInputUp.add(this.prevPage, this);
+
+	//preload library
 	this.libraryFront.inputEnabled = true;
 	this.libraryFront.events.onInputUp.add(this.loadLibrary, this);
 	this.libraryFront.visible = false;
@@ -105,13 +99,11 @@ gameplayState.prototype.create = function(){
 		this.surgeryObjects[i].events.onInputDown.add(this.toTop, this);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
-
 	//allow input for libraryObjects
 	for (var i = 0; i < this.libraryObjects.length; i++){
 		this.libraryObjects[i].inputEnabled = true;
 		this.libraryObjects[i].events.onInputUp.add(this.open, this);
 	}
-
 	//allow input for museumObjects
 	for (var i = 0; i < this.museumObjects.length; i++){
 		this.museumObjects[i].inputEnabled = true;
@@ -129,6 +121,7 @@ gameplayState.prototype.create = function(){
 	this.setPos(this.closeX, 910, 430);
 	this.setPos(this.rightArrow, 850, 1800);
 	this.setPos(this.leftArrow, 150, 1800);
+
 	this.loadSurgery();
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
@@ -172,6 +165,7 @@ gameplayState.prototype.update = function(){
 		for (var i = 0; i < this.museumObjects.length; i++){
 			this.museumObjects[i].inputEnabled = true;
 		}
+		this.libraryFront.inputEnabled = true;
 	}
 	else{
 		for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -183,7 +177,9 @@ gameplayState.prototype.update = function(){
 		for (var i = 0; i < this.museumObjects.length; i++){
 			this.museumObjects[i].inputEnabled = false;
 		}
+		this.libraryFront.inputEnabled = false;
 	}
+
 	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
     swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
     swipe_time = game.input.activePointer.duration;
@@ -307,12 +303,6 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 
 //opens a book so that we can read it
 gameplayState.prototype.open = function(sprite, pointer){
-	this.booksheet = null;
-	if (sprite == this.libraryObjects[0]){ this.booksheet = this.book1sheet; }
-	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
-	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
-	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
-	else if (sprite == this.libraryObjects[4]){ this.booksheet = this.book5sheet; }
 	this.booksheet.frame = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.closeX.visible = true;

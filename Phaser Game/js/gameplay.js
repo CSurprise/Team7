@@ -10,6 +10,8 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
+	this.page = 0; //page number in open book
+	this.pageMax = 5; //maximum number pages
 
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");
@@ -45,6 +47,10 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.closeX);
 	this.windowSprites.push(this.rightArrow);
 	this.windowSprites.push(this.leftArrow);
+
+	//booksheet animations
+	this.booksheet.animations.add("next", [0,1,2,3,4,5,6], 10, false);
+	this.booksheet.animations.add("prev", [6,5,4,3,2,1,0], 10, false);
 
 	//surgery objects
 	this.surgeryObjects = [];
@@ -322,16 +328,12 @@ gameplayState.prototype.close = function(sprite, pointer){
 
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
-	if (this.booksheet.frame < this.booksheet.animations.frameTotal - 1){
-		this.booksheet.frame++;
-	}
+	this.booksheet.animations.play("next");
 }
 
 //turns to the previous page in an opened book
 gameplayState.prototype.prevPage = function(sprite, pointer){
-	if (this.booksheet.frame > 0){
-		this.booksheet.frame--;
-	}
+	this.booksheet.animations.play("prev");
 }
 
 //view jar

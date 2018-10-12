@@ -19,23 +19,23 @@ gameplayState.prototype.create = function(){
 	this.museum = game.add.sprite(0,0,"museum");
 	this.locations = game.add.sprite(0, 0, "locations");
 	this.inventory = game.add.sprite(0, game.world.height - 250, "inventory");
-	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
-	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
-	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
-	this.docIcon = game.add.sprite(900, 100, "docIcon");
+	this.surgeryIcon = game.add.sprite(100, 90, "surgeryIcon");
+	this.libraryIcon = game.add.sprite(300, 90, "libraryIcon");
+	this.museumIcon = game.add.sprite(500, 90, "museumIcon");
+	this.docIcon = game.add.sprite(900, 90, "docIcon");
 
 	//window sprites
-	this.document = game.add.sprite(300, 500, "document");
-	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
-	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
-	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
-	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
-	this.book5sheet = game.add.sprite(100, 500, "book1sheet"); this.book5sheet.scale.set(30,30);
-	this.viewjar1 = game.add.sprite(100, 500, "viewjar1");
-	this.viewjar2 = game.add.sprite(100, 500, "viewjar2");
-	this.viewjar3 = game.add.sprite(100, 500, "viewjar3");
-	this.viewjar4 = game.add.sprite(100, 500, "viewjar4");
-	this.viewjar5 = game.add.sprite(100, 500, "viewjar5");
+	this.document = game.add.sprite(0, 0, "document");
+	this.book1sheet = game.add.sprite(0, 0, "book1sheet"); this.book1sheet.scale.set(30,30);
+	this.book2sheet = game.add.sprite(0, 0, "book1sheet"); this.book2sheet.scale.set(30,30);
+	this.book3sheet = game.add.sprite(0, 0, "book1sheet"); this.book3sheet.scale.set(30,30);
+	this.book4sheet = game.add.sprite(0, 0, "book1sheet"); this.book4sheet.scale.set(30,30);
+	this.book5sheet = game.add.sprite(0, 0, "book1sheet"); this.book5sheet.scale.set(30,30);
+	this.viewjar1 = game.add.sprite(0, 0, "viewjar1");
+	this.viewjar2 = game.add.sprite(0, 0, "viewjar2");
+	this.viewjar3 = game.add.sprite(0, 0, "viewjar3");
+	this.viewjar4 = game.add.sprite(0, 0, "viewjar4");
+	this.viewjar5 = game.add.sprite(0, 0, "viewjar5");
 	this.closeX = game.add.sprite(900,700,"closeX");
 	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
 	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
@@ -65,19 +65,19 @@ gameplayState.prototype.create = function(){
 
 	//library objects
 	this.libraryObjects = [];
-	this.libraryObjects.push(game.add.sprite(300,500,"book1"));
-	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
-	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
-	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
-	this.libraryObjects.push(game.add.sprite(300,1600,"book5"));
+	this.libraryObjects.push(game.add.sprite(217,852,"book1"));
+	this.libraryObjects.push(game.add.sprite(375,852,"book2"));
+	this.libraryObjects.push(game.add.sprite(522,949,"book3"));
+	this.libraryObjects.push(game.add.sprite(669,1141,"book4"));
+	this.libraryObjects.push(game.add.sprite(10,852,"book5"));
 
 	//museum objects
 	this.museumObjects = [];
-	this.museumObjects.push(game.add.sprite(300,500,"jar1"));
-	this.museumObjects.push(game.add.sprite(300,800,"jar2"));
-	this.museumObjects.push(game.add.sprite(300,1100,"jar3"));
-	this.museumObjects.push(game.add.sprite(300,1400,"jar4"));
-	this.museumObjects.push(game.add.sprite(300,1600,"jar5"));
+	this.museumObjects.push(game.add.sprite(369,1027,"jar1"));
+	this.museumObjects.push(game.add.sprite(457,1034,"jar2"));
+	this.museumObjects.push(game.add.sprite(589,1037,"jar3"));
+	this.museumObjects.push(game.add.sprite(708,1029,"jar4"));
+	this.museumObjects.push(game.add.sprite(259,1029,"jar5"));
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;

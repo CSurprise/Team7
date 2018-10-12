@@ -13,6 +13,7 @@ gameplayState.prototype.create = function(){
 	this.booksheet = null; //the current booksheet that is open
 
 	//UI sprites
+	this.libraryFront = game.add.sprite(0,0,"libraryFront");
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
@@ -86,6 +87,9 @@ gameplayState.prototype.create = function(){
 	this.rightArrow.events.onInputUp.add(this.nextPage, this);
 	this.leftArrow.inputEnabled = true;
 	this.leftArrow.events.onInputUp.add(this.prevPage, this);
+	this.libraryFront.inputEnabled = true;
+	this.libraryFront.events.onInputUp.add(this.loadLibrary, this);
+	this.libraryFront.visible = false;
 
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -151,6 +155,7 @@ gameplayState.prototype.update = function(){
 //switches to the surgery location
 gameplayState.prototype.loadSurgery = function(){
 	this.location = "surgery";
+	this.libraryFront.visible = false;
 	this.surgery.visible = true;
 	this.library.visible = false;
 	this.museum.visible = false;
@@ -165,9 +170,29 @@ gameplayState.prototype.loadSurgery = function(){
 	}
 }
 
+//shows libraryFront
+gameplayState.prototype.preloadLibrary = function(){
+	this.libraryFront.visible = true;
+	this.surgery.visible = false;
+	this.library.visible = false;
+	this.museum.visible = false;
+	for (var i = 0; i < this.surgeryObjects.length; i++){
+		if (this.surgeryObjects[i].inventory == false){ //allow inventory to stay visible
+			this.surgeryObjects[i].visible = false;
+		}
+	}
+	for (var i = 0; i < this.libraryObjects.length; i++){
+		this.libraryObjects[i].visible = false;
+	}
+	for (var i = 0; i < this.museumObjects.length; i++){
+		this.museumObjects[i].visible = false;
+	}
+}
+
 //switches to the library location
 gameplayState.prototype.loadLibrary = function(){
 	this.location = "library";
+	this.libraryFront.visible = false;
 	this.surgery.visible = false;
 	this.library.visible = true;
 	this.museum.visible = false;
@@ -187,6 +212,7 @@ gameplayState.prototype.loadLibrary = function(){
 //switches to the museum location
 gameplayState.prototype.loadMuseum = function(){
 	this.location = "museum";
+	this.libraryFront.visible = false;
 	this.surgery.visible = false;
 	this.library.visible = false;
 	this.museum.visible = true;
@@ -208,9 +234,7 @@ gameplayState.prototype.surgeryIconTap = function(){
 	if (this.reading == "none") { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (this.reading == "none") {
-		this.loadLibrary();
-	}
+	if (this.reading == "none") { this.preloadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
 	if (this.reading == "none") { this.loadMuseum(); }

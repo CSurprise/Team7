@@ -116,6 +116,8 @@ gameplayState.prototype.create = function(){
 	
 	//set specific locations for closeX and arrows
 	this.setPos(this.closeX, 910, 430);
+	this.setPos(this.rightArrow, 850, 1800);
+	this.setPos(this.leftArrow, 150, 1800);
 
 	this.loadSurgery();
 };
@@ -217,8 +219,6 @@ gameplayState.prototype.docIconTap = function(){
 		this.document.visible = true;
 		this.closeX.visible = true;
 		this.reading = "document";
-		this.rightArrow.visible = true; //remove
-		this.leftArrow.visible = true; //remove
 	}
 }
 

@@ -204,6 +204,7 @@ gameplayState.prototype.loadSurgery = function(){
 
 //shows libraryFront
 gameplayState.prototype.preloadLibrary = function(){
+	this.location = "library";
 	this.libraryFront.visible = true;
 	this.surgery.visible = false;
 	this.library.visible = false;

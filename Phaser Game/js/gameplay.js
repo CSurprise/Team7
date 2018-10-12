@@ -115,7 +115,7 @@ gameplayState.prototype.create = function(){
 	}
 	
 	//set specific locations for closeX and arrows
-	this.closeX.x = 
+	this.setPos(this.closeX, 910, 430);
 
 	this.loadSurgery();
 };
@@ -217,6 +217,8 @@ gameplayState.prototype.docIconTap = function(){
 		this.document.visible = true;
 		this.closeX.visible = true;
 		this.reading = "document";
+		this.rightArrow.visible = true; //remove
+		this.leftArrow.visible = true; //remove
 	}
 }
 
@@ -290,7 +292,7 @@ gameplayState.prototype.center = function(sprite){
 }
 
 //sets position of sprite
-gameplayState.prototype.setPos(sprite, X, Y){
+gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
 }

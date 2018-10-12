@@ -29,7 +29,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("lungs", "assets/lungs.png");
 	game.load.image("liver", "assets/liver.png");
 	game.load.image("stomach", "assets/stomach.png");
-	game.load.image("kidney", "assets/kidney.png")
+	game.load.image("intestines", "assets/intestines.png")
 	game.load.image("book1", "assets/book1.png");
 	game.load.image("book2", "assets/book2.png");
 	game.load.image("book3", "assets/book3.png");

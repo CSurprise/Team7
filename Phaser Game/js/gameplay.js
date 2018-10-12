@@ -123,15 +123,24 @@ gameplayState.prototype.create = function(){
 	this.setPos(this.leftArrow, 150, 1800);
 	this.loadSurgery();
 
-	this.reportText = 'Hello!\nThis is some new text\n' +
-	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s' +
+	// TEMPORARY CASE STUFF; TODO REPLACE LATER
+	this.diseaseNames = ["Disease A","B Syndome","Infection Type C"];
+	this.numDropDowns = 2;
+	this.solution = ["B Syndrome", "Disease A"];
+	this.caseText = 'Hello!\nThis is some new text\n' +
+	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s ' +
 	'going to be necessary functionality eventually when we get there';
-	this.caseText = game.add.existing(new Phaser.Text(game, 250, 650, this.reportText, {
+
+	// Set up report objects
+	this.caseTextObject = game.add.existing(new Phaser.Text(game, 250, 650, this.caseText, {
 		font:'bold 20pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
 	}));
-	this.caseText.visible = false;
+	// set up the buttons (L, R, and submission)
+	// set up the dropdowns...
+	// set up validation...
+	this.caseTextObject.visible = false;
 };
 
 gameplayState.prototype.handle_swipe = function (swipe)
@@ -170,7 +179,7 @@ gameplayState.prototype.update = function(){
 	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
     swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
     swipe_time = game.input.activePointer.duration;
-    if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250)
+    if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250 && this.location === 'surgery')
     {
         this.handle_swipe(new Phaser.Line(game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,
             game.input.activePointer.position.x, game.input.activePointer.position.y));
@@ -267,7 +276,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
-		this.caseText.visible = true;
+		this.caseTextObject.visible = true;
 		this.closeX.visible = true;
 		this.reading = "document";
 	}
@@ -308,7 +317,7 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
-	this.caseText.visible = false;
+	this.caseTextObject.visible = false;
 }
 
 //turns to the next page in an opened book

@@ -12,7 +12,7 @@ gameplayState.prototype.create = function(){
 	this.reading = "none"; //what are we reading
 	this.booksheet = null; //the current booksheet that is open
 
-	//background and UI sprites
+	//UI sprites
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
@@ -23,8 +23,8 @@ gameplayState.prototype.create = function(){
 	this.museumIcon = game.add.sprite(500, 100, "museumIcon");
 	this.docIcon = game.add.sprite(900, 100, "docIcon");
 
-	//windows sprites
-	this.document = game.add.sprite(100, 500, "document");
+	//window sprites
+	this.document = game.add.sprite(300, 500, "document");
 	this.book1sheet = game.add.sprite(100, 500, "book1sheet"); this.book1sheet.scale.set(30,30);
 	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
 	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
@@ -50,21 +50,21 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.rightArrow);
 	this.windowSprites.push(this.leftArrow);
 
-	//add surgery objects
+	//surgery objects
 	this.surgeryObjects = [];
 	this.surgeryObjects.push(game.add.existing(new Organ(400,700,"heart",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,900,"lungs",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,1300,"liver",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,1500,"stomach",[{x:0,y:0,angle:0}])));
 
-	//add library objects
+	//library objects
 	this.libraryObjects = [];
 	this.libraryObjects.push(game.add.sprite(300,500,"book1"));
 	this.libraryObjects.push(game.add.sprite(300,800,"book2"));
 	this.libraryObjects.push(game.add.sprite(300,1100,"book3"));
 	this.libraryObjects.push(game.add.sprite(300,1400,"book4"));
 
-	//add museum objects
+	//museum objects
 	this.museumObjects = [];
 	this.museumObjects.push(game.add.sprite(300,500,"jar1"));
 	this.museumObjects.push(game.add.sprite(300,800,"jar2"));
@@ -107,7 +107,8 @@ gameplayState.prototype.create = function(){
 		this.museumObjects[i].events.onInputUp.add(this.view, this);
 	}
 
-	//bring window sprites to front and turn invisible
+	this.center(this.document);
+	//bring window sprites to front, center, and turn invisible
 	for (var i = 0; i < this.windowSprites.length; i++){
 		game.world.bringToTop(this.windowSprites[i]);
 		this.windowSprites[i].visible = false;
@@ -277,4 +278,10 @@ gameplayState.prototype.view = function(sprite, pointer){
 	this.viewjar.visible = true;
 	this.closeX.visible = true;
 	this.reading = "jar";
+}
+
+//move sprite to center of screen
+gameplayState.prototype.center = function(sprite, pointer){
+	sprite.x = (game.world.width - sprite.width)/2;
+	sprite.y = (game.world.height - sprite.height)/2;
 }

@@ -309,7 +309,7 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 
 //opens a book so that we can read it
 gameplayState.prototype.open = function(sprite, pointer){
-	this.booksheet.frame = 0; //set book to first page
+	this.page = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
@@ -328,12 +328,18 @@ gameplayState.prototype.close = function(sprite, pointer){
 
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
-	this.booksheet.animations.play("next");
+	if (this.page < this.pageMax){
+		this.booksheet.animations.play("next");
+		this.page++;
+	}
 }
 
 //turns to the previous page in an opened book
 gameplayState.prototype.prevPage = function(sprite, pointer){
-	this.booksheet.animations.play("prev");
+	if (this.page > 0){
+		this.booksheet.animations.play("prev");
+		this.page--;
+	}
 }
 
 //view jar

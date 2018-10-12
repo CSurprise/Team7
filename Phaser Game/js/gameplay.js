@@ -13,12 +13,12 @@ gameplayState.prototype.create = function(){
 	this.booksheet = null; //the current booksheet that is open
 
 	//UI sprites
-	this.libraryFront = game.add.sprite(0,0,"libraryFront");
+	this.libraryFront = game.add.sprite(0,300,"libraryFront");
 	this.surgery = game.add.sprite(0,0,"surgery");
 	this.library = game.add.sprite(0,0,"library");
 	this.museum = game.add.sprite(0,0,"museum");
 	this.locations = game.add.sprite(0, 0, "locations");
-	this.inventory = game.add.sprite(0, game.world.height - 200, "inventory");
+	this.inventory = game.add.sprite(0, game.world.height - 250, "inventory");
 	this.surgeryIcon = game.add.sprite(100, 100, "surgeryIcon");
 	this.libraryIcon = game.add.sprite(300, 100, "libraryIcon");
 	this.museumIcon = game.add.sprite(500, 100, "museumIcon");

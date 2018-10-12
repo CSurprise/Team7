@@ -30,7 +30,7 @@ gameplayState.prototype.create = function(){
 	this.book2sheet = game.add.sprite(100, 500, "book1sheet"); this.book2sheet.scale.set(30,30);
 	this.book3sheet = game.add.sprite(100, 500, "book1sheet"); this.book3sheet.scale.set(30,30);
 	this.book4sheet = game.add.sprite(100, 500, "book1sheet"); this.book4sheet.scale.set(30,30);
-	this.book5sheet = game.add.sprite(100, 500, "book5sheet"); this.book5sheet.scale.set(30,30);
+	this.book5sheet = game.add.sprite(100, 500, "book1sheet"); this.book5sheet.scale.set(30,30);
 	this.viewjar1 = game.add.sprite(100, 500, "viewjar1");
 	this.viewjar2 = game.add.sprite(100, 500, "viewjar2");
 	this.viewjar3 = game.add.sprite(100, 500, "viewjar3");
@@ -275,6 +275,7 @@ gameplayState.prototype.open = function(sprite, pointer){
 	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
 	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
 	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
+	else if (sprite == this.libraryObjects[4]){ this.booksheet = this.book5sheet; }
 	this.booksheet.frame = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.closeX.visible = true;
@@ -312,6 +313,7 @@ gameplayState.prototype.view = function(sprite, pointer){
 	else if (sprite == this.museumObjects[1]){ this.viewjar = this.viewjar2; }
 	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; }
 	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; }
+	else if (sprite == this.museumObjects[4]){ this.viewjar = this.viewjar5; }
 	this.viewjar.visible = true;
 	this.closeX.visible = true;
 	this.reading = "jar";

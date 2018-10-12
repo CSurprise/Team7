@@ -107,12 +107,15 @@ gameplayState.prototype.create = function(){
 		this.museumObjects[i].events.onInputUp.add(this.view, this);
 	}
 
-	this.center(this.document);
 	//bring window sprites to front, center, and turn invisible
 	for (var i = 0; i < this.windowSprites.length; i++){
 		game.world.bringToTop(this.windowSprites[i]);
+		this.center(this.windowSprites[i]);
 		this.windowSprites[i].visible = false;
 	}
+	
+	//set specific locations for closeX and arrows
+	this.closeX.x = 
 
 	this.loadSurgery();
 };
@@ -281,7 +284,13 @@ gameplayState.prototype.view = function(sprite, pointer){
 }
 
 //move sprite to center of screen
-gameplayState.prototype.center = function(sprite, pointer){
+gameplayState.prototype.center = function(sprite){
 	sprite.x = (game.world.width - sprite.width)/2;
 	sprite.y = (game.world.height - sprite.height)/2;
+}
+
+//sets position of sprite
+gameplayState.prototype.setPos(sprite, X, Y){
+	sprite.x = X;
+	sprite.y = Y;
 }

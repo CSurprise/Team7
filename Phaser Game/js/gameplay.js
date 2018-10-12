@@ -81,6 +81,7 @@ gameplayState.prototype.create = function(){
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
+	// add doc transition arrows
 	this.closeX.inputEnabled = true;
 	this.closeX.events.onInputUp.add(this.close, this);
 	this.rightArrow.inputEnabled = true;
@@ -94,8 +95,6 @@ gameplayState.prototype.create = function(){
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
 		this.surgeryObjects[i].inventory = false;
-		this.surgeryObjects[i].inputEnabled = true;
-		this.surgeryObjects[i].input.enableDrag(true);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
@@ -135,6 +134,14 @@ gameplayState.prototype.create = function(){
 	this.caseText.visible = false;
 };
 
+gameplayState.prototype.handle_swipe = function (swipe)
+{
+    for (var i = 0; i < this.surgeryObjects.length; i++)
+    {
+        this.surgeryObjects[i].check_cut(swipe);
+    }
+};
+
 gameplayState.prototype.update = function(){
 
 	//disable in game objects input while reading
@@ -160,6 +167,14 @@ gameplayState.prototype.update = function(){
 			this.museumObjects[i].inputEnabled = false;
 		}
 	}
+	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
+    swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
+    swipe_time = game.input.activePointer.duration;
+    if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250)
+    {
+        this.handle_swipe(new Phaser.Line(game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,
+            game.input.activePointer.position.x, game.input.activePointer.position.y));
+    } 
 };
 
 //switches to the surgery location

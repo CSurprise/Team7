@@ -118,7 +118,6 @@ gameplayState.prototype.create = function(){
 	this.setPos(this.closeX, 910, 430);
 	this.setPos(this.rightArrow, 850, 1800);
 	this.setPos(this.leftArrow, 150, 1800);
-
 	this.loadSurgery();
 };
 
@@ -209,7 +208,9 @@ gameplayState.prototype.surgeryIconTap = function(){
 	if (this.reading == "none") { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (this.reading == "none") { this.loadLibrary(); }
+	if (this.reading == "none") {
+		this.loadLibrary();
+	}
 }
 gameplayState.prototype.museumIconTap = function(){
 	if (this.reading == "none") { this.loadMuseum(); }

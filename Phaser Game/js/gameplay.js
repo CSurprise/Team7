@@ -33,7 +33,7 @@ gameplayState.prototype.create = function(){
 	this.viewjar2 = game.add.sprite(100, 500, "viewjar2");
 	this.viewjar3 = game.add.sprite(100, 500, "viewjar3");
 	this.viewjar4 = game.add.sprite(100, 500, "viewjar4");
-	this.star = game.add.sprite(900,700,"star"); this.star.scale.set(3,3);
+	this.closeX = game.add.sprite(900,700,"closeX");
 	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
 	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
 	this.windowSprites = [];
@@ -46,7 +46,7 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.viewjar2);
 	this.windowSprites.push(this.viewjar3);
 	this.windowSprites.push(this.viewjar4);
-	this.windowSprites.push(this.star);
+	this.windowSprites.push(this.closeX);
 	this.windowSprites.push(this.rightArrow);
 	this.windowSprites.push(this.leftArrow);
 
@@ -80,8 +80,8 @@ gameplayState.prototype.create = function(){
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
-	this.star.inputEnabled = true;
-	this.star.events.onInputUp.add(this.close, this);
+	this.closeX.inputEnabled = true;
+	this.closeX.events.onInputUp.add(this.close, this);
 	this.rightArrow.inputEnabled = true;
 	this.rightArrow.events.onInputUp.add(this.nextPage, this);
 	this.leftArrow.inputEnabled = true;
@@ -211,7 +211,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
-		this.star.visible = true;
+		this.closeX.visible = true;
 		this.reading = "document";
 	}
 }
@@ -239,7 +239,7 @@ gameplayState.prototype.open = function(sprite, pointer){
 	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
 	this.booksheet.frame = 0; //set book to first page
 	this.booksheet.visible = true;
-	this.star.visible = true;
+	this.closeX.visible = true;
 	this.rightArrow.visible = true;
 	this.leftArrow.visible = true;
 	this.reading = "book";
@@ -275,6 +275,6 @@ gameplayState.prototype.view = function(sprite, pointer){
 	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; }
 	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; }
 	this.viewjar.visible = true;
-	this.star.visible = true;
+	this.closeX.visible = true;
 	this.reading = "jar";
 }

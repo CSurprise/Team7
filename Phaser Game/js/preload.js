@@ -40,6 +40,9 @@ preloadState.prototype.preload = function(){
 	//spritesheets and jars
 	game.load.spritesheet("book1sheet", "assets/book1sheet.png", 32, 48);
 	game.load.image("viewjar1", "assets/viewjar1.png");
+	game.load.image("viewjar2", "assets/viewjar2.png");
+	game.load.image("viewjar3", "assets/viewjar3.png");
+	game.load.image("viewjar4", "assets/viewjar4.png");
 };
 
 preloadState.prototype.create = function(){

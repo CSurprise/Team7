@@ -28,10 +28,9 @@ Organ.prototype.check_cut = function (cut)
 {
     // check collision against every "collider" (maybe just check if the swipe is close enough and
     // the angle of the swipe is close to what's expected)
-    //console.log(this.organ_name);
     if (this.free === false)
     {
-        for (i = 0; i < this.cuts.length; i++)
+        for (var i = 0; i < this.cuts.length; i++)
         {
             cut_point = new Phaser.Point(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y);
 
@@ -94,10 +93,10 @@ Organ.prototype.check_cut = function (cut)
 
 Organ.prototype.update = function ()
 {
-    //for(i = 0; i < this.cuts.length; i++)
-    //{
-    //    game.debug.geom(new Phaser.Circle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, 2* this.cut_distance_tolerance), 'cyan', true);
-    //    game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, this.cuts[i].angle, 2*this.cut_distance_tolerance), 'cyan', true);
-    //    game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, Phaser.Math.normalizeAngle(this.cuts[i].angle + Math.PI), 2*this.cut_distance_tolerance), 'cyan', true);
-    //}
+    for(i = 0; i < this.cuts.length; i++)
+    {
+        game.debug.geom(new Phaser.Circle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, 2* this.cut_distance_tolerance), 'cyan', true);
+        game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, this.cuts[i].angle, 2*this.cut_distance_tolerance), 'cyan', true);
+        game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, Phaser.Math.normalizeAngle(this.cuts[i].angle + Math.PI), 2*this.cut_distance_tolerance), 'cyan', true);
+    }
 };

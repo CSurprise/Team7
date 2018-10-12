@@ -120,6 +120,16 @@ gameplayState.prototype.create = function(){
 	this.setPos(this.leftArrow, 150, 1800);
 
 	this.loadSurgery();
+
+	this.reportText = 'Hello!\nThis is some new text\n' +
+	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s' +
+	'going to be necessary functionality eventually when we get there';
+	this.caseText = game.add.existing(new Phaser.Text(game, 250, 650, this.reportText, {
+		font:'bold 20pt Arial',
+		wordWrap:true,
+		wordWrapWidth:650
+	}));
+	this.caseText.visible = false;
 };
 
 gameplayState.prototype.update = function(){
@@ -217,6 +227,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
+		this.caseText.visible = true;
 		this.closeX.visible = true;
 		this.reading = "document";
 	}
@@ -257,6 +268,7 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
+	this.caseText.visible = false;
 }
 
 //turns to the next page in an opened book

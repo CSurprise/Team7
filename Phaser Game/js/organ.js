@@ -28,10 +28,9 @@ Organ.prototype.check_cut = function (cut)
 {
     // check collision against every "collider" (maybe just check if the swipe is close enough and
     // the angle of the swipe is close to what's expected)
-    //console.log(this.organ_name);
     if (this.free === false)
     {
-        for (i = 0; i < this.cuts.length; i++)
+        for (var i = 0; i < this.cuts.length; i++)
         {
             cut_point = new Phaser.Point(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y);
 

@@ -5,7 +5,7 @@ let gameplayState = function(){
 };
 
 gameplayState.prototype.create = function(){
-	
+
 	//important variables
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
@@ -52,10 +52,10 @@ gameplayState.prototype.create = function(){
 
 	//add surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.sprite(400,700,"heart"));
-	this.surgeryObjects.push(game.add.sprite(400,900,"lungs"));
-	this.surgeryObjects.push(game.add.sprite(400,1300,"liver"));
-	this.surgeryObjects.push(game.add.sprite(400,1500,"stomach"));
+	this.surgeryObjects.push(game.add.existing(new Organ(400,700,"heart",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(400,900,"lungs",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(400,1300,"liver",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(400,1500,"stomach",[{x:0,y:0,angle:0}])));
 
 	//add library objects
 	this.libraryObjects = [];

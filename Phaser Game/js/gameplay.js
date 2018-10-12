@@ -57,11 +57,11 @@ gameplayState.prototype.create = function(){
 
 	//surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(400,700,"heart",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,900,"lungs",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,1300,"liver",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,1500,"stomach",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(400,1700,"kidney",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(400,700,"heart",[{x:0,y:0,angle:0}])));
 
 	//library objects
 	this.libraryObjects = [];
@@ -102,6 +102,7 @@ gameplayState.prototype.create = function(){
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
 		this.surgeryObjects[i].inventory = false;
+		this.surgeryObjects[i].events.onInputDown.add(this.toTop, this);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 
@@ -362,8 +363,11 @@ gameplayState.prototype.center = function(sprite){
 	sprite.y = (game.world.height - sprite.height)/2;
 }
 
-//sets position of sprite
+//helper functions
 gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
+}
+gameplayState.prototype.toTop = function(sprite, pointer){
+	game.world.bringToTop(sprite);
 }

@@ -69,10 +69,10 @@ gameplayState.prototype.create = function(){
 
 	//surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
 
 	//library objects
@@ -169,6 +169,7 @@ gameplayState.prototype.create = function(){
 		wordWrapWidth:650
 	}));
 	this.pageText.visible = false;
+
 	this.docCorner = { x: 250 , y: 650 };
 	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
 	this.report.setVisible(false);

@@ -164,7 +164,7 @@ gameplayState.prototype.create = function(){
 	this.caseTextObject.visible = false;
 
 	//book text
-	this.pageText = game.add.existing(new Phaser.Text(game, 250, 650, "BOO", {
+	this.pageText = game.add.existing(new Phaser.Text(game, 650, 1100, "", {
 		font:'bold 20pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650

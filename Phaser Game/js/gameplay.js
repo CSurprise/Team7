@@ -16,6 +16,7 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
+	this.book = 0; //book opened
 	this.page = 0; //page number in open book
 	this.pageMax = 3; //maximum number pages
 
@@ -161,6 +162,14 @@ gameplayState.prototype.create = function(){
 	// set up the dropdowns...
 	// set up validation...
 	this.caseTextObject.visible = false;
+
+	//book text
+	this.pageText = game.add.existing(new Phaser.Text(game, 250, 650, "BOO", {
+		font:'bold 20pt Arial',
+		wordWrap:true,
+		wordWrapWidth:650
+	}));
+	this.pageText.visible = false;
 };
 
 gameplayState.prototype.handle_swipe = function (swipe)
@@ -322,12 +331,23 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 
 //opens a book so that we can read it
 gameplayState.prototype.open = function(sprite, pointer){
-	this.page = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
 	this.leftArrow.visible = true;
 	this.reading = "book";
+
+	//determine book
+	if (sprite == this.libraryObjects[0]) { this.book = 0; }
+	else if (sprite == this.libraryObjects[1]) { this.book = 1; }
+	else if (sprite == this.libraryObjects[2]) { this.book = 2; }
+	else if (sprite == this.libraryObjects[3]) { this.book = 3; }
+	else if (sprite == this.libraryObjects[4]) { this.book = 4; }
+
+	//set to first page
+	this.page = 0;
+	this.pageText.setText(this.books[this.book][this.page]);
+	this.pageText.visible = true;
 }
 
 //close all window sprites
@@ -337,25 +357,36 @@ gameplayState.prototype.close = function(sprite, pointer){
 	}
 	this.reading = "none";
 	this.caseTextObject.visible = false;
+	this.pageText.visible = false;
 }
 
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
-	if (this.page < this.pageMax){
-		this.rightArrow.visible = false;
-		this.booksheet.animations.play("next");
-		this.booksheet.animations.currentAnim.onComplete.add(function(){this.rightArrow.visible = true;}, this);
+	if (this.page < this.pageMax-1){
 		this.page++;
+		this.rightArrow.visible = false;
+		this.pageText.visible = false;
+		this.pageText.setText(this.books[this.book][this.page]);
+		this.booksheet.animations.play("next");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){
+			this.rightArrow.visible = true;
+			this.pageText.visible = true;
+		}, this);
 	}
 }
 
 //turns to the previous page in an opened book
 gameplayState.prototype.prevPage = function(sprite, pointer){
 	if (this.page > 0){
-		this.leftArrow.visible = false;
-		this.booksheet.animations.play("prev");
-		this.booksheet.animations.currentAnim.onComplete.add(function(){this.leftArrow.visible = true;}, this);
 		this.page--;
+		this.leftArrow.visible = false;
+		this.pageText.visible = false;
+		this.pageText.setText(this.books[this.book][this.page]);
+		this.booksheet.animations.play("prev");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){
+			this.leftArrow.visible = true;
+			this.pageText.visible = true;
+		}, this);
 	}
 }
 

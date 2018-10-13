@@ -70,10 +70,10 @@ gameplayState.prototype.create = function(){
 
 	//museum objects
 	this.museumObjects = [];
-	this.museumObjects.push(game.add.sprite(369,1027,"jar1"));
+	this.museumObjects.push(game.add.sprite(374,1027,"jar1"));
 	this.museumObjects.push(game.add.sprite(457,1034,"jar2"));
 	this.museumObjects.push(game.add.sprite(589,1037,"jar3"));
-	this.museumObjects.push(game.add.sprite(708,1029,"jar4"));
+	this.museumObjects.push(game.add.sprite(738,1029,"jar4"));
 	this.museumObjects.push(game.add.sprite(259,1029,"jar5"));
 
 	//allow input for buttons

@@ -132,23 +132,16 @@ gameplayState.prototype.create = function(){
 	this.loadSurgery();
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
-	this.diseaseNames = ["Disease A","B Syndome","Infection Type C"];
-	this.numDropDowns = 2;
+	this.diseaseNames = ["Disease A","B Syndrome","Infection Type C"];
 	this.solution = ["B Syndrome", "Disease A"];
 	this.caseText = 'Hello!\nThis is some new text\n' +
 	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s ' +
 	'going to be necessary functionality eventually when we get there';
 
 	// Set up report objects
-	this.caseTextObject = game.add.existing(new Phaser.Text(game, 250, 650, this.caseText, {
-		font:'bold 20pt Arial',
-		wordWrap:true,
-		wordWrapWidth:650
-	}));
-	// set up the buttons (L, R, and submission)
-	// set up the dropdowns...
-	// set up validation...
-	this.caseTextObject.visible = false;
+	this.docCorner = { x: 250 , y: 650 };
+	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
+	this.report.setVisible(false);
 };
 
 gameplayState.prototype.handle_swipe = function (swipe)
@@ -285,7 +278,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
-		this.caseTextObject.visible = true;
+		this.report.setVisible(true);
 		this.closeX.visible = true;
 		this.reading = "document";
 	}
@@ -327,7 +320,7 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
-	this.caseTextObject.visible = false;
+	this.report.setVisible(false);
 }
 
 //turns to the next page in an opened book

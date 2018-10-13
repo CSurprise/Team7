@@ -383,6 +383,3 @@ gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
 }
-gameplayState.prototype.toTop = function(sprite, pointer){
-	game.world.bringToTop(sprite);
-}

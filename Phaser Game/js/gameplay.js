@@ -69,11 +69,19 @@ gameplayState.prototype.create = function(){
 
 	//surgery objects
 	this.surgeryObjects = [];
+<<<<<<< HEAD
 	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:0,y:0,angle:0}])));
+=======
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
+>>>>>>> master
 
 	//library objects
 	this.libraryObjects = [];
@@ -145,14 +153,14 @@ gameplayState.prototype.create = function(){
 	this.loadSurgery();
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
-	this.diseaseNames = ["Disease A","B Syndome","Infection Type C"];
-	this.numDropDowns = 2;
+	this.diseaseNames = ["Disease A","B Syndrome","Infection Type C"];
 	this.solution = ["B Syndrome", "Disease A"];
 	this.caseText = 'Hello!\nThis is some new text\n' +
 	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s ' +
 	'going to be necessary functionality eventually when we get there';
 
 	// Set up report objects
+<<<<<<< HEAD
 	this.caseTextObject = game.add.existing(new Phaser.Text(game, 250, 650, this.caseText, {
 		font:'bold 20pt Arial',
 		wordWrap:true,
@@ -170,6 +178,11 @@ gameplayState.prototype.create = function(){
 		wordWrapWidth:650
 	}));
 	this.pageText.visible = false;
+=======
+	this.docCorner = { x: 250 , y: 650 };
+	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
+	this.report.setVisible(false);
+>>>>>>> master
 };
 
 gameplayState.prototype.handle_swipe = function (swipe)
@@ -309,7 +322,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
-		this.caseTextObject.visible = true;
+		this.report.setVisible(true);
 		this.closeX.visible = true;
 		this.reading = "document";
 	}
@@ -356,8 +369,12 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
+<<<<<<< HEAD
 	this.caseTextObject.visible = false;
 	this.pageText.visible = false;
+=======
+	this.report.setVisible(false);
+>>>>>>> master
 }
 
 //turns to the next page in an opened book

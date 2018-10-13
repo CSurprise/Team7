@@ -57,11 +57,11 @@ gameplayState.prototype.create = function(){
 
 	//surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
 
 	//library objects
 	this.libraryObjects = [];

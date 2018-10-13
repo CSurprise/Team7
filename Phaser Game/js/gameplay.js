@@ -1,5 +1,3 @@
-// gameplayState constructor
-
 let gameplayState = function(){
 	
 };
@@ -11,7 +9,15 @@ gameplayState.prototype.create = function(){
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
 	this.page = 0; //page number in open book
-	this.pageMax = 5; //maximum number pages
+	this.pageMax = 3; //maximum number pages
+
+	//booktext
+	this.books = []; //array of books
+	this.books.push(["book1 page1", "book1 page2", "book1 page3"]);
+	this.books.push(["book2 page1", "book2 page2", "book2 page3"]);
+	this.books.push(["book3 page1", "book3 page2", "book3 page3"]);
+	this.books.push(["book4 page1", "book4 page2", "book4 page3"]);
+	this.books.push(["book5 page1", "book5 page2", "book5 page3"]);
 
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");

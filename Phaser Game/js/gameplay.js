@@ -329,7 +329,9 @@ gameplayState.prototype.close = function(sprite, pointer){
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
 	if (this.page < this.pageMax){
+		this.rightArrow.visible = false;
 		this.booksheet.animations.play("next");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){this.rightArrow.visible = true;}, this);
 		this.page++;
 	}
 }
@@ -337,7 +339,9 @@ gameplayState.prototype.nextPage = function(sprite, pointer){
 //turns to the previous page in an opened book
 gameplayState.prototype.prevPage = function(sprite, pointer){
 	if (this.page > 0){
+		this.leftArrow.visible = false;
 		this.booksheet.animations.play("prev");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){this.leftArrow.visible = true;}, this);
 		this.page--;
 	}
 }

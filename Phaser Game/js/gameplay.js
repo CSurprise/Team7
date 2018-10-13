@@ -139,9 +139,9 @@ gameplayState.prototype.create = function(){
 	'going to be necessary functionality eventually when we get there';
 
 	// Set up report objects
-	this.docCorner = { x: 250 , y: 650 };
+	this.docCorner = { x: 250 , y: 600 };
 	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
-	this.report.setVisible(false);
+	this.report.disable();
 };
 
 gameplayState.prototype.handle_swipe = function (swipe)
@@ -278,7 +278,7 @@ gameplayState.prototype.museumIconTap = function(){
 gameplayState.prototype.docIconTap = function(){
 	if (this.reading == "none") {
 		this.document.visible = true;
-		this.report.setVisible(true);
+		this.report.toReport();
 		this.closeX.visible = true;
 		this.reading = "document";
 	}
@@ -320,7 +320,7 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
-	this.report.setVisible(false);
+	this.report.disable();
 }
 
 //turns to the next page in an opened book

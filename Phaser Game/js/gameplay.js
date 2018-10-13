@@ -1,3 +1,11 @@
+/*
+1. Heart
+2. Lungs
+3. Liver
+4. Stomach
+5. Intestines
+*/
+
 let gameplayState = function(){
 	
 };
@@ -60,10 +68,10 @@ gameplayState.prototype.create = function(){
 
 	//surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:0,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:0,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:0,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:0,y:0,angle:0}])));
 
 	//library objects
@@ -108,7 +116,6 @@ gameplayState.prototype.create = function(){
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
 		this.surgeryObjects[i].inventory = false;
-		this.surgeryObjects[i].events.onInputDown.add(this.toTop, this);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
 	//allow input for libraryObjects

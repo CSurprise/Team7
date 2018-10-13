@@ -1,4 +1,10 @@
-// gameplayState constructor
+/*
+1. Heart
+2. Lungs
+3. Liver
+4. Stomach
+5. Intestines
+*/
 
 let gameplayState = function(){
 	
@@ -10,7 +16,17 @@ gameplayState.prototype.create = function(){
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
 	this.reading = "none"; //what are we reading
-	this.booksheet = null; //the current booksheet that is open
+	this.book = 0; //book opened
+	this.page = 0; //page number in open book
+	this.pageMax = 3; //maximum number pages
+
+	//booktext
+	this.books = []; //array of books
+	this.books.push(["book1 page1", "book1 page2", "book1 page3"]);
+	this.books.push(["book2 page1", "book2 page2", "book2 page3"]);
+	this.books.push(["book3 page1", "book3 page2", "book3 page3"]);
+	this.books.push(["book4 page1", "book4 page2", "book4 page3"]);
+	this.books.push(["book5 page1", "book5 page2", "book5 page3"]);
 
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");
@@ -26,26 +42,18 @@ gameplayState.prototype.create = function(){
 
 	//window sprites
 	this.document = game.add.sprite(0, 0, "document");
-	this.book1sheet = game.add.sprite(0, 0, "book1sheet"); this.book1sheet.scale.set(30,30);
-	this.book2sheet = game.add.sprite(0, 0, "book1sheet"); this.book2sheet.scale.set(30,30);
-	this.book3sheet = game.add.sprite(0, 0, "book1sheet"); this.book3sheet.scale.set(30,30);
-	this.book4sheet = game.add.sprite(0, 0, "book1sheet"); this.book4sheet.scale.set(30,30);
-	this.book5sheet = game.add.sprite(0, 0, "book1sheet"); this.book5sheet.scale.set(30,30);
+	this.booksheet = game.add.sprite(0, 0, "booksheet");
 	this.viewjar1 = game.add.sprite(0, 0, "viewjar1");
 	this.viewjar2 = game.add.sprite(0, 0, "viewjar2");
 	this.viewjar3 = game.add.sprite(0, 0, "viewjar3");
 	this.viewjar4 = game.add.sprite(0, 0, "viewjar4");
 	this.viewjar5 = game.add.sprite(0, 0, "viewjar5");
-	this.closeX = game.add.sprite(900,700,"closeX");
-	this.rightArrow = game.add.sprite(900,1400,"rightArrow");
-	this.leftArrow = game.add.sprite(200,1400,"leftArrow");
+	this.closeX = game.add.sprite(910,430,"closeX");
+	this.rightArrow = game.add.sprite(850,1800,"rightArrow");
+	this.leftArrow = game.add.sprite(150,1800,"leftArrow");
 	this.windowSprites = [];
 	this.windowSprites.push(this.document);
-	this.windowSprites.push(this.book1sheet);
-	this.windowSprites.push(this.book2sheet);
-	this.windowSprites.push(this.book3sheet);
-	this.windowSprites.push(this.book4sheet);
-	this.windowSprites.push(this.book5sheet);
+	this.windowSprites.push(this.booksheet);
 	this.windowSprites.push(this.viewjar1);
 	this.windowSprites.push(this.viewjar2);
 	this.windowSprites.push(this.viewjar3);
@@ -55,12 +63,16 @@ gameplayState.prototype.create = function(){
 	this.windowSprites.push(this.rightArrow);
 	this.windowSprites.push(this.leftArrow);
 
+	//booksheet animations
+	this.booksheet.animations.add("next", [0,1,2,3,4,5,6], 10, false);
+	this.booksheet.animations.add("prev", [6,5,4,3,2,1,0], 10, false);
+
 	//surgery objects
 	this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
 	this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
 
 	//library objects
@@ -73,10 +85,10 @@ gameplayState.prototype.create = function(){
 
 	//museum objects
 	this.museumObjects = [];
-	this.museumObjects.push(game.add.sprite(369,1027,"jar1"));
+	this.museumObjects.push(game.add.sprite(374,1027,"jar1"));
 	this.museumObjects.push(game.add.sprite(457,1034,"jar2"));
 	this.museumObjects.push(game.add.sprite(589,1037,"jar3"));
-	this.museumObjects.push(game.add.sprite(708,1029,"jar4"));
+	this.museumObjects.push(game.add.sprite(738,1029,"jar4"));
 	this.museumObjects.push(game.add.sprite(259,1029,"jar5"));
 
 	//allow input for buttons
@@ -88,13 +100,16 @@ gameplayState.prototype.create = function(){
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
-	// add doc transition arrows
+
+	//windowsprite buttons
 	this.closeX.inputEnabled = true;
 	this.closeX.events.onInputUp.add(this.close, this);
 	this.rightArrow.inputEnabled = true;
 	this.rightArrow.events.onInputUp.add(this.nextPage, this);
 	this.leftArrow.inputEnabled = true;
 	this.leftArrow.events.onInputUp.add(this.prevPage, this);
+
+	//preload library
 	this.libraryFront.inputEnabled = true;
 	this.libraryFront.events.onInputUp.add(this.loadLibrary, this);
 	this.libraryFront.visible = false;
@@ -102,16 +117,13 @@ gameplayState.prototype.create = function(){
 	//allow input for surgeryObjects
 	for (var i = 0; i < this.surgeryObjects.length; i++){
 		this.surgeryObjects[i].inventory = false;
-		this.surgeryObjects[i].events.onInputDown.add(this.toTop, this);
 		this.surgeryObjects[i].events.onInputUp.add(this.addToInventory, this);
 	}
-
 	//allow input for libraryObjects
 	for (var i = 0; i < this.libraryObjects.length; i++){
 		this.libraryObjects[i].inputEnabled = true;
 		this.libraryObjects[i].events.onInputUp.add(this.open, this);
 	}
-
 	//allow input for museumObjects
 	for (var i = 0; i < this.museumObjects.length; i++){
 		this.museumObjects[i].inputEnabled = true;
@@ -129,6 +141,7 @@ gameplayState.prototype.create = function(){
 	this.setPos(this.closeX, 910, 430);
 	this.setPos(this.rightArrow, 850, 1800);
 	this.setPos(this.leftArrow, 150, 1800);
+
 	this.loadSurgery();
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
@@ -139,6 +152,14 @@ gameplayState.prototype.create = function(){
 	'going to be necessary functionality eventually when we get there';
 
 	// Set up report objects
+	//book text
+	this.pageText = game.add.existing(new Phaser.Text(game, 650, 1100, "", {
+		font:'bold 20pt Arial',
+		wordWrap:true,
+		wordWrapWidth:650
+	}));
+	this.pageText.visible = false;
+
 	this.docCorner = { x: 250 , y: 600 };
 	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
 	this.report.disable();
@@ -165,6 +186,7 @@ gameplayState.prototype.update = function(){
 		for (var i = 0; i < this.museumObjects.length; i++){
 			this.museumObjects[i].inputEnabled = true;
 		}
+		this.libraryFront.inputEnabled = true;
 	}
 	else{
 		for (var i = 0; i < this.surgeryObjects.length; i++){
@@ -176,7 +198,9 @@ gameplayState.prototype.update = function(){
 		for (var i = 0; i < this.museumObjects.length; i++){
 			this.museumObjects[i].inputEnabled = false;
 		}
+		this.libraryFront.inputEnabled = false;
 	}
+
 	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
     swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
     swipe_time = game.input.activePointer.duration;
@@ -300,18 +324,23 @@ gameplayState.prototype.addToInventory = function(sprite, pointer){
 
 //opens a book so that we can read it
 gameplayState.prototype.open = function(sprite, pointer){
-	this.booksheet = null;
-	if (sprite == this.libraryObjects[0]){ this.booksheet = this.book1sheet; }
-	else if (sprite == this.libraryObjects[1]){ this.booksheet = this.book2sheet; }
-	else if (sprite == this.libraryObjects[2]){ this.booksheet = this.book3sheet; }
-	else if (sprite == this.libraryObjects[3]){ this.booksheet = this.book4sheet; }
-	else if (sprite == this.libraryObjects[4]){ this.booksheet = this.book5sheet; }
-	this.booksheet.frame = 0; //set book to first page
 	this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
 	this.leftArrow.visible = true;
 	this.reading = "book";
+
+	//determine book
+	if (sprite == this.libraryObjects[0]) { this.book = 0; }
+	else if (sprite == this.libraryObjects[1]) { this.book = 1; }
+	else if (sprite == this.libraryObjects[2]) { this.book = 2; }
+	else if (sprite == this.libraryObjects[3]) { this.book = 3; }
+	else if (sprite == this.libraryObjects[4]) { this.book = 4; }
+
+	//set to first page
+	this.page = 0;
+	this.pageText.setText(this.books[this.book][this.page]);
+	this.pageText.visible = true;
 }
 
 //close all window sprites
@@ -320,20 +349,37 @@ gameplayState.prototype.close = function(sprite, pointer){
 		this.windowSprites[i].visible = false;
 	}
 	this.reading = "none";
+	this.pageText.visible = false;
 	this.report.disable();
 }
 
 //turns to the next page in an opened book
 gameplayState.prototype.nextPage = function(sprite, pointer){
-	if (this.booksheet.frame < this.booksheet.animations.frameTotal - 1){
-		this.booksheet.frame++;
+	if (this.page < this.pageMax-1){
+		this.page++;
+		this.rightArrow.visible = false;
+		this.pageText.visible = false;
+		this.pageText.setText(this.books[this.book][this.page]);
+		this.booksheet.animations.play("next");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){
+			this.rightArrow.visible = true;
+			this.pageText.visible = true;
+		}, this);
 	}
 }
 
 //turns to the previous page in an opened book
 gameplayState.prototype.prevPage = function(sprite, pointer){
-	if (this.booksheet.frame > 0){
-		this.booksheet.frame--;
+	if (this.page > 0){
+		this.page--;
+		this.leftArrow.visible = false;
+		this.pageText.visible = false;
+		this.pageText.setText(this.books[this.book][this.page]);
+		this.booksheet.animations.play("prev");
+		this.booksheet.animations.currentAnim.onComplete.add(function(){
+			this.leftArrow.visible = true;
+			this.pageText.visible = true;
+		}, this);
 	}
 }
 
@@ -360,7 +406,4 @@ gameplayState.prototype.center = function(sprite){
 gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
-}
-gameplayState.prototype.toTop = function(sprite, pointer){
-	game.world.bringToTop(sprite);
 }

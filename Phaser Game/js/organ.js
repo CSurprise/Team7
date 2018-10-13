@@ -90,7 +90,7 @@ Organ.prototype.check_cut = function (cut)
     //console.log(this.free);
     return this.free;
 }
-
+/*
 Organ.prototype.update = function ()
 {
     /*for(i = 0; i < this.cuts.length; i++)
@@ -98,5 +98,10 @@ Organ.prototype.update = function ()
         game.debug.geom(new Phaser.Circle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, 2* this.cut_distance_tolerance), 'cyan', true);
         game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, this.cuts[i].angle, 2*this.cut_distance_tolerance), 'cyan', true);
         game.debug.geom((new Phaser.Line(0,0,0,0)).fromAngle(this.cuts[i].x + this.position.x, this.cuts[i].y + this.position.y, Phaser.Math.normalizeAngle(this.cuts[i].angle + Math.PI), 2*this.cut_distance_tolerance), 'cyan', true);
+<<<<<<< HEAD
+    }
+};*/
+=======
     }*/
 };
+>>>>>>> master

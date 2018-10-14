@@ -25,13 +25,11 @@ gameplayState.prototype.create = function(){
 	this.books = []; //array of books
 	this.bookData = game.cache.getJSON("bookD");
 	this.getBookText();
-	/*
-	this.books.push(["book1 page1", "book1 page2", "book1 page3"]);
-	this.books.push(["book2 page1", "book2 page2", "book2 page3"]);
-	this.books.push(["book3 page1", "book3 page2", "book3 page3"]);
-	this.books.push(["book4 page1", "book4 page2", "book4 page3"]);
-	this.books.push(["book5 page1", "book5 page2", "book5 page3"]);
-	*/
+
+	//jar text
+	this.jarText = [];
+	this.jarData = game.cache.getJSON("jarD");
+	this.getJarText(); 
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");
 	this.surgery = game.add.sprite(0,0,"surgery");
@@ -357,6 +355,7 @@ gameplayState.prototype.close = function(sprite, pointer){
 	}
 	this.reading = "none";
 	this.pageText.visible = false;
+	this.jarText.visible = false; 
 	this.report.disable();
 }
 
@@ -393,11 +392,12 @@ gameplayState.prototype.prevPage = function(sprite, pointer){
 //view jar
 gameplayState.prototype.view = function(sprite, pointer){
 	this.viewjar = null;
-	if (sprite == this.museumObjects[0]){ this.viewjar = this.viewjar1; }
-	else if (sprite == this.museumObjects[1]){ this.viewjar = this.viewjar2; }
-	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; }
-	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; }
-	else if (sprite == this.museumObjects[4]){ this.viewjar = this.viewjar5; }
+	var numForJarText //0 - jar1 text, 1 - jar2 text, etc...
+	if (sprite == this.museumObjects[0]){ this.viewjar = this.viewjar1; numForJarText = 0;}
+	else if (sprite == this.museumObjects[1]){ this.viewjar = this.viewjar2; numForJarText = 1;}
+	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; numForJarText = 2;}
+	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; numForJarText = 3;}
+	else if (sprite == this.museumObjects[4]){ this.viewjar = this.viewjar5; numForJarText = 4;}
 	this.viewjar.visible = true;
 	this.closeX.visible = true;
 	this.reading = "jar";
@@ -418,6 +418,13 @@ gameplayState.prototype.setPos = function(sprite, X, Y){
 gameplayState.prototype.getBookText = function(){
 	for(i in this.bookData.Books){
 		this.books.push(this.bookData.Books[i].Pages);
+	}
+
+}
+
+gameplayState.prototype.getJarText = function(){
+	for(i in this.jarData.Jars){
+		this.jarText.push(this.jarData.Jars[i].jarList)
 	}
 
 }

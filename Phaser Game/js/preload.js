@@ -29,21 +29,26 @@ preloadState.prototype.preload = function(){
 	game.load.image("lungs", "assets/lungs.png");
 	game.load.image("liver", "assets/liver.png");
 	game.load.image("stomach", "assets/stomach.png");
+	game.load.image("intestines", "assets/intestines.png")
 	game.load.image("book1", "assets/book1.png");
 	game.load.image("book2", "assets/book2.png");
 	game.load.image("book3", "assets/book3.png");
 	game.load.image("book4", "assets/book4.png");
+	game.load.image("book5", "assets/book5.png");
 	game.load.image("jar1", "assets/jar1.png");
 	game.load.image("jar2", "assets/jar2.png");
 	game.load.image("jar3", "assets/jar3.png");
 	game.load.image("jar4", "assets/jar4.png");
+	game.load.image("jar5", "assets/jar5.png");
 
 	//spritesheets and jars
-	game.load.spritesheet("book1sheet", "assets/book1sheet.png", 32, 48);
+	game.load.spritesheet("booksheet", "assets/booksheet.png", 900, 1500);
 	game.load.image("viewjar1", "assets/viewjar1.png");
 	game.load.image("viewjar2", "assets/viewjar2.png");
 	game.load.image("viewjar3", "assets/viewjar3.png");
 	game.load.image("viewjar4", "assets/viewjar4.png");
+	game.load.image("viewjar5", "assets/viewjar5.png");
+	game.load.json("bookD", "assets/LevelData/bookData.json");
 };
 
 preloadState.prototype.create = function(){

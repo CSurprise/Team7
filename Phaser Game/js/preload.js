@@ -48,6 +48,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("viewjar3", "assets/viewjar3.png");
 	game.load.image("viewjar4", "assets/viewjar4.png");
 	game.load.image("viewjar5", "assets/viewjar5.png");
+	game.load.json("bookD", "assets/LevelData/bookData.json");
 };
 
 preloadState.prototype.create = function(){

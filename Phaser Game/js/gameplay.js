@@ -12,6 +12,7 @@ let gameplayState = function(){
 
 gameplayState.prototype.create = function(){
 
+
 	//important variables
 	this.location = null; //current location
 	this.inventorySize = 0; //number of objects in inventory
@@ -22,12 +23,15 @@ gameplayState.prototype.create = function(){
 
 	//booktext
 	this.books = []; //array of books
+	this.bookData = game.cache.getJSON("bookD");
+	this.getBookText();
+	/*
 	this.books.push(["book1 page1", "book1 page2", "book1 page3"]);
 	this.books.push(["book2 page1", "book2 page2", "book2 page3"]);
 	this.books.push(["book3 page1", "book3 page2", "book3 page3"]);
 	this.books.push(["book4 page1", "book4 page2", "book4 page3"]);
 	this.books.push(["book5 page1", "book5 page2", "book5 page3"]);
-
+	*/
 	//UI sprites
 	this.libraryFront = game.add.sprite(0,300,"libraryFront");
 	this.surgery = game.add.sprite(0,0,"surgery");
@@ -43,6 +47,7 @@ gameplayState.prototype.create = function(){
 	//window sprites
 	this.document = game.add.sprite(0, 0, "document");
 	this.booksheet = game.add.sprite(0, 0, "booksheet");
+	this.booksheet.scale.set(2,2);
 	this.viewjar1 = game.add.sprite(0, 0, "viewjar1");
 	this.viewjar2 = game.add.sprite(0, 0, "viewjar2");
 	this.viewjar3 = game.add.sprite(0, 0, "viewjar3");
@@ -136,6 +141,7 @@ gameplayState.prototype.create = function(){
 		this.center(this.windowSprites[i]);
 		this.windowSprites[i].visible = false;
 	}
+	this.booksheet.x = -700; 
 	
 	//set specific locations for closeX and arrows
 	this.setPos(this.closeX, 910, 430);
@@ -337,6 +343,7 @@ gameplayState.prototype.open = function(sprite, pointer){
 	else if (sprite == this.libraryObjects[3]) { this.book = 3; }
 	else if (sprite == this.libraryObjects[4]) { this.book = 4; }
 
+	
 	//set to first page
 	this.page = 0;
 	this.pageText.setText(this.books[this.book][this.page]);
@@ -406,4 +413,11 @@ gameplayState.prototype.center = function(sprite){
 gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
+}
+
+gameplayState.prototype.getBookText = function(){
+	for(i in this.bookData.Books){
+		this.books.push(this.bookData.Books[i].Pages);
+	}
+
 }

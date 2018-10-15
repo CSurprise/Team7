@@ -24,7 +24,6 @@ Surgery.prototype.EnableInput  = function () { this.SetInput(true);  };
 Surgery.prototype.DisableInput = function () { this.SetInput(false); };
 
 Surgery.prototype.AddToInventory = function (sprite, pointer) {
-    console.log("Add " + sprite.organ_name + " to inventory");
     if (sprite.y > 1900)
     { //is sprite close to inventory?
         if (sprite.inventory == false)

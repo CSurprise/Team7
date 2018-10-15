@@ -7,7 +7,7 @@ let Library = function (shared, bookText)
     this.page = 0;
 
 	this.library = game.add.sprite(0,0,"library");
-	this.libraryFront = game.add.sprite(0,300,"libraryFront");
+	this.libraryFront = game.add.sprite(0,0,"libraryFront");
 
 	this.libraryObjects = [];
 	this.libraryObjects.push(game.add.sprite(217,852,"book1"));
@@ -37,7 +37,7 @@ let Library = function (shared, bookText)
     // set up some stuff for the zooming
     this.libraryFront.inputEnabled = true;
 	this.libraryFront.events.onInputUp.add(function (sprite, pointer) {
-        this.Zoom();
+        if(pointer.y < game.world.height - 250 && pointer.y > 306){ this.Zoom(); }
     }, this);
 
     for (var i = 0; i < this.libraryObjects.length; i++){

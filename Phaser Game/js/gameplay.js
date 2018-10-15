@@ -58,12 +58,16 @@ gameplayState.prototype.create = function(){
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
+	this.surgeryIcon.events.onInputDown.add(this.buttonDown, this);
 	this.surgeryIcon.events.onInputUp.add(this.surgeryIconTap, this);
 	this.libraryIcon.inputEnabled = true;
+	this.libraryIcon.events.onInputDown.add(this.buttonDown, this);
 	this.libraryIcon.events.onInputUp.add(this.libraryIconTap, this);
 	this.museumIcon.inputEnabled = true;
+	this.museumIcon.events.onInputDown.add(this.buttonDown, this);
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
+	this.docIcon.events.onInputDown.add(this.buttonDown, this);
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 
 	//windowsprite buttons
@@ -138,15 +142,16 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
-	if (!this.shared.reading) { this.loadSurgery(); }
+	if (!this.shared.reading) { this.buttonUp(this.surgeryIcon); this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (!this.shared.reading) { this.loadLibrary(); }
+	if (!this.shared.reading) { this.buttonUp(this.libraryIcon); this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
-	if (!this.shared.reading) { this.loadMuseum(); }
+	if (!this.shared.reading) { this.buttonUp(this.museumIcon); this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
+	this.buttonUp(this.docIcon);
 	if (!this.shared.reading) {
 		this.document.visible = true;
 		this.report.toReport();
@@ -189,6 +194,16 @@ gameplayState.prototype.center = function(sprite){
 gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
+}
+gameplayState.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+gameplayState.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
 }
 
 gameplayState.prototype.getBookText = function(){

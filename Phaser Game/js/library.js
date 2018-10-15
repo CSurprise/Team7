@@ -64,7 +64,6 @@ Library.prototype.OpenBook = function (sprite, pointer)
     this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
-	this.leftArrow.visible = true;
 	this.shared.reading = true;
 
 	//determine book
@@ -93,14 +92,15 @@ Library.prototype.CloseBook = function (sprite, pointer)
 
 Library.prototype.NextPage = function (sprite, pointer)
 {
-    if (this.page < this.books[this.book].length - 1){
+    if (this.page < this.books[this.book].length-1){
 		this.page++;
 		this.rightArrow.visible = false;
 		this.pageText.visible = false;
 		this.pageText.setText(this.books[this.book][this.page]);
 		this.booksheet.animations.play("next");
 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-			this.rightArrow.visible = true;
+			if (this.page != this.books[this.book].length-1) {this.rightArrow.visible = true;}
+			if (this.page != 0) {this.leftArrow.visible = true;}
 			this.pageText.visible = true;
 		}, this);
 	}
@@ -115,7 +115,8 @@ Library.prototype.PrevPage = function (sprite, pointer)
 		this.pageText.setText(this.books[this.book][this.page]);
 		this.booksheet.animations.play("prev");
 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-			this.leftArrow.visible = true;
+			if (this.page != this.books[this.book].length-1) {this.rightArrow.visible = true;}
+			if (this.page != 0) {this.leftArrow.visible = true;}
 			this.pageText.visible = true;
 		}, this);
 	}

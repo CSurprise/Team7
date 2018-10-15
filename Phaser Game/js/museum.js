@@ -44,7 +44,9 @@ Museum.prototype.EnableInput  = function () { this.SetInput(true);  };
 Museum.prototype.DisableInput = function () { this.SetInput(false); };
 
 // do a curried function thing here so there's not this big case statement
-Museum.prototype.ShowJar = function(sprite, pointer) {
+Museum.prototype.ShowJar = function(sprite, pointer) 
+{
+    this.shared.DisableInput();
     this.viewjar = null;
     for (var i = 0; i < this.museumObjects.length; i++)
     {
@@ -52,14 +54,15 @@ Museum.prototype.ShowJar = function(sprite, pointer) {
     }
 	this.viewjar.visible = true;
 	this.closeX.visible = true;
-	this.shared.reading = "jar";
+    this.shared.reading = true;
 }
 
 Museum.prototype.CloseJar = function (sprite, pointer)
 {
+    this.shared.EnableInput();
     this.viewjar.visible = false;
     this.closeX.visible = false;
-    this.shared.reading = "none";
+    this.shared.reading = false;
 }
 
 Museum.prototype.SetVisibility = function (vis)

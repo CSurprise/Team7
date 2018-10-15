@@ -12,6 +12,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("museum", "assets/museum.png");
 	game.load.image("document", "assets/document.png");
 	game.load.image("libraryFront", "assets/libraryFront.png");
+	game.load.image("startMenu", "assets/start.png");
 
 	//UI sprites
 	game.load.image("inventory", "assets/inventory.png");
@@ -23,6 +24,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("closeX", "assets/closeX.png");
 	game.load.image("rightArrow", "assets/rightArrow.png");
 	game.load.image("leftArrow", "assets/leftArrow.png");
+	game.load.image("mainStartButton", "assets/startBotton.png");
 
 	//object sprites
 	game.load.image("heart", "assets/heart.png");
@@ -53,7 +55,7 @@ preloadState.prototype.preload = function(){
 };
 
 preloadState.prototype.create = function(){
-	game.state.start("Game");
+	game.state.start("Menu");
 	
 };
 

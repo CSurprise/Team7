@@ -6,6 +6,7 @@
 	
 	<script type="text/javascript" src="js/lib/phaser.min.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/organ.js"></script>
 	<script type="text/javascript" src="js/gameplay.js"></script>
 	<script type="text/javascript" src="js/diseaseSelector.js"></script>
@@ -28,6 +29,7 @@
 	let game = new Phaser.Game(1125, 2436, Phaser.AUTO);
 
 	game.state.add("Preload", preloadState);
+	game.state.add("Menu", menu);
 	game.state.add("Game", gameplayState);
 	game.state.start("Preload");
 

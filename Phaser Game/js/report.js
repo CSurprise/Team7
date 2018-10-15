@@ -31,6 +31,7 @@ let Report = function (x, y, caseText, diseases, solution)
     this.submit = game.add.sprite(0, y + 1000, "submit");
     this.submit.x = (game.world.width - this.submit.width)/2;
     this.submit.inputEnabled = true;
+    this.submit.events.onInputDown.add(this.buttonDown, this);
     this.submit.events.onInputUp.add(this.evaluate, this);
 };
 
@@ -68,6 +69,7 @@ Report.prototype.toSubmit = function ()
 
 Report.prototype.evaluate = function ()
 {
+    this.buttonUp(this.submit);
     let selected = [];
     for (var i = 0; i < this.selectors.length; i++)
     {
@@ -80,3 +82,14 @@ Report.prototype.evaluate = function ()
     }
     console.log("SUCCESS!"); return;
 };
+
+Report.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+Report.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
+}

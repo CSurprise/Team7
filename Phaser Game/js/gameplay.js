@@ -6,21 +6,34 @@
 5. Intestines
 */
 
-let gameplayState = function(){
-	
-};
+let gameplayState = function () {};
 
 gameplayState.prototype.create = function(){
 
 	// A VARIABLE FOR ANYTHING THAT NEEDS TO BE SHARED BETWEEN SCENES
+	let newEnableInput  = function (state) { state.EnableInput(); };
+	let newDisableInput = function (state) { state.DisableInput(); };
+	let sharedEnableInput  = () => { newEnableInput(this);  };
+	let sharedDisableInput = () => { newDisableInput(this); };
+
 	this.shared = 
 	{
 		inventorySize: 0, // Size of the inventory
-		reading: "none",   // if we're reading
+		reading: false,   // if we're reading
+		EnableInput:  function () { sharedEnableInput();  },
+		DisableInput: function () { sharedDisableInput(); }
 	};
 
 	//important variables
 	this.location = null; //current location
+
+	this.books = [];
+	this.bookData = game.cache.getJSON("bookD");
+	this.getBookText();
+	
+	this.jarText = [];
+	this.jarData = game.cache.getJSON("jarD");
+	this.getJarText();
 
 	//UI sprites
 	this.locations = game.add.sprite(0, 0, "locations");
@@ -32,8 +45,8 @@ gameplayState.prototype.create = function(){
 
 	// Setup all scenes
 	this.surgeryScene = new Surgery(this.shared);
-	this.museumScene = new Museum(this.shared);
-	this.libraryScene = new Library(this.shared);
+	this.museumScene = new Museum(this.shared, this.jarText);
+	this.libraryScene = new Library(this.shared, this.books);
 
 	//document sprites
 	this.document = game.add.sprite(0, 0, "document");
@@ -63,7 +76,6 @@ gameplayState.prototype.create = function(){
 		this.center(this.windowSprites[i]);
 		this.windowSprites[i].visible = false;
 	}
-	this.booksheet.x = -700; 
 	
 	//set specific locations for closeX and arrows
 	this.setPos(this.closeX, 910, 430);
@@ -83,27 +95,13 @@ gameplayState.prototype.create = function(){
 	this.report.disable();
 };
 
-gameplayState.prototype.update = function(){
-
-	//disable in game objects input while reading
-	// TODO this shouldn't be called every update, cause it's unnecessary
-	if (this.shared.reading == "none"){
-		this.surgeryScene.EnableInput();
-		this.museumScene.EnableInput();
-		this.libraryScene.EnableInput();
-	}
-	else{
-		this.surgeryScene.DisableInput();
-		this.museumScene.DisableInput();
-		this.libraryScene.DisableInput();
-	}
-
+gameplayState.prototype.update = function()
+{
 	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
     swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
     swipe_time = game.input.activePointer.duration;
     if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250 && this.location === 'surgery')
     {
-		// MARK, again should be inside surgery object
         this.surgeryScene.HandleSwipe(new Phaser.Line(
 			game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,
             game.input.activePointer.position.x, game.input.activePointer.position.y));
@@ -119,7 +117,7 @@ gameplayState.prototype.loadSurgery = function(){
 }
 
 //shows libraryFront
-gameplayState.prototype.preloadLibrary = function(){
+gameplayState.prototype.loadLibrary = function(){
 	this.location = "library";
 	this.surgeryScene.Hide();
 	this.museumScene.Hide();
@@ -137,96 +135,46 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
-	if (this.shared.reading == "none") { this.loadSurgery(); }
+	if (!this.shared.reading) { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (this.shared.reading == "none") { this.preloadLibrary(); }
+	if (!this.shared.reading) { this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
-	if (this.shared.reading == "none") { this.loadMuseum(); }
+	if (!this.shared.reading) { this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
-	if (this.shared.reading == "none") {
+	if (!this.shared.reading) {
 		this.document.visible = true;
 		this.report.toReport();
 		this.closeX.visible = true;
-		this.shared.reading = "document";
+		this.shared.reading = true;
 	}
 }
 
-//opens a book so that we can read it
-// gameplayState.prototype.open = function(sprite, pointer){
-// 	this.booksheet.visible = true;
-// 	this.closeX.visible = true;
-// 	this.rightArrow.visible = true;
-// 	this.leftArrow.visible = true;
-// 	this.shared.reading = "book";
+gameplayState.prototype.EnableInput = function ()
+{
+	this.surgeryScene.EnableInput();
+	this.museumScene.EnableInput();
+	this.libraryScene.EnableInput();
+};
 
-// 	//determine book
-// 	if (sprite == this.libraryObjects[0]) { this.book = 0; }
-// 	else if (sprite == this.libraryObjects[1]) { this.book = 1; }
-// 	else if (sprite == this.libraryObjects[2]) { this.book = 2; }
-// 	else if (sprite == this.libraryObjects[3]) { this.book = 3; }
-// 	else if (sprite == this.libraryObjects[4]) { this.book = 4; }
-
-// 	//set to first page
-// 	this.page = 0;
-// 	this.pageText.setText(this.books[this.book][this.page]);
-// 	this.pageText.visible = true;
-// }
+gameplayState.prototype.DisableInput = function ()
+{
+	this.surgeryScene.DisableInput();
+	this.museumScene.DisableInput();
+	this.libraryScene.DisableInput();
+};
 
 //close all window sprites
 gameplayState.prototype.close = function(sprite, pointer){
 	for (var i = 0; i < this.windowSprites.length; i++){
 		this.windowSprites[i].visible = false;
 	}
-	this.shared.reading = "none";
+	this.shared.reading =  false;
 	//this.pageText.visible = false;
 	this.report.disable();
 }
-
-//turns to the next page in an opened book
-// gameplayState.prototype.nextPage = function(sprite, pointer){
-// 	if (this.page < this.pageMax-1){
-// 		this.page++;
-// 		this.rightArrow.visible = false;
-// 		this.pageText.visible = false;
-// 		this.pageText.setText(this.books[this.book][this.page]);
-// 		this.booksheet.animations.play("next");
-// 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-// 			this.rightArrow.visible = true;
-// 			this.pageText.visible = true;
-// 		}, this);
-// 	}
-// }
-
-//turns to the previous page in an opened book
-// gameplayState.prototype.prevPage = function(sprite, pointer){
-// 	if (this.page > 0){
-// 		this.page--;
-// 		this.leftArrow.visible = false;
-// 		this.pageText.visible = false;
-// 		this.pageText.setText(this.books[this.book][this.page]);
-// 		this.booksheet.animations.play("prev");
-// 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-// 			this.leftArrow.visible = true;
-// 			this.pageText.visible = true;
-// 		}, this);
-// 	}
-// }
-
-//view jar
-// gameplayState.prototype.view = function(sprite, pointer){
-// 	this.viewjar = null;
-// 	if (sprite == this.museumObjects[0]){ this.viewjar = this.viewjar1; }
-// 	else if (sprite == this.museumObjects[1]){ this.viewjar = this.viewjar2; }
-// 	else if (sprite == this.museumObjects[2]){ this.viewjar = this.viewjar3; }
-// 	else if (sprite == this.museumObjects[3]){ this.viewjar = this.viewjar4; }
-// 	else if (sprite == this.museumObjects[4]){ this.viewjar = this.viewjar5; }
-// 	this.viewjar.visible = true;
-// 	this.closeX.visible = true;
-// 	this.reading = "jar";
-// }
 
 //move sprite to center of screen
 gameplayState.prototype.center = function(sprite){
@@ -244,12 +192,10 @@ gameplayState.prototype.getBookText = function(){
 	for(i in this.bookData.Books){
 		this.books.push(this.bookData.Books[i].Pages);
 	}
-
 }
 
 gameplayState.prototype.getJarText = function(){
 	for(i in this.jarData.Jars){
 		this.jarText.push(this.jarData.Jars[i].jarList)
 	}
-
 }

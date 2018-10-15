@@ -151,14 +151,17 @@ gameplayState.prototype.create = function(){
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
 	this.diseaseNames = ["Disease A","B Syndrome","Infection Type C"];
 	this.solution = ["B Syndrome", "Disease A"];
-	this.caseText = 'Hello!\nThis is some new text\n' +
-	'I\'m writing this bit of super long text in order to test if text wrapping works since that\'s ' +
-	'going to be necessary functionality eventually when we get there';
+	this.caseText = 'Name: Wyatt Claude\nRace: Caucasian\nAge: 45\nGender: Male\nAlignment: Farmer\nReligion: Christian\nWeight: 86.2kg\nHeight: 1.88m\n' +
+	'Background: A rural potato farmer, Wyatt was always outside in his potato farm. Most days he'+
+	'did not wear shoes and would spend all day from morning to night tending to the potatoes only'+
+	'stopping to use the bathroom and eat food. He was beginning to use the bathroom much more' +
+	'frequently in his last days. The farm was known for not using any pesticides and being all' +
+	'organic.';
 
 	// Set up report objects
 	//book text
 	this.pageText = game.add.existing(new Phaser.Text(game, 650, 1100, "", {
-		font:'bold 20pt Arial',
+		font:'bold 36pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
 	}));

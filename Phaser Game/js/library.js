@@ -23,7 +23,6 @@ let Library = function (shared, bookText)
     this.booksheet.animations.add("prev", [6,5,4,3,2,1,0], 10, false);
     
     this.closeX = game.add.sprite(910,430,"closeX");
-
     this.rightArrow = game.add.sprite(850,1800,"rightArrow");
     this.leftArrow = game.add.sprite(150,1800,"leftArrow");
     
@@ -32,6 +31,7 @@ let Library = function (shared, bookText)
 	this.leftArrow.inputEnabled = true;
 	this.leftArrow.events.onInputUp.add(this.PrevPage, this);
 	this.closeX.inputEnabled = true;
+	this.closeX.events.onInputDown.add(this.buttonDown, this);
 	this.closeX.events.onInputUp.add(this.CloseBook, this);
     
     // set up some stuff for the zooming
@@ -81,6 +81,7 @@ Library.prototype.OpenBook = function (sprite, pointer)
 
 Library.prototype.CloseBook = function (sprite, pointer)
 { // TODO implement
+	this.buttonUp(this.closeX);
 	this.shared.EnableInput();
 	this.booksheet.visible = false;
 	this.closeX.visible = false;
@@ -155,3 +156,14 @@ Library.prototype.SetInput = function (input)
         this.libraryObjects.inputEnabled = input;
     }
 };
+
+Library.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+Library.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
+}

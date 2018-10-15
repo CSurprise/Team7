@@ -33,6 +33,7 @@ let Museum = function (shared)
 
     this.closeX = game.add.sprite(910,430,"closeX");
     this.closeX.inputEnabled = true;
+    this.closeX.events.onInputDown.add(this.buttonDown, this);
     this.closeX.events.onInputUp.add(this.CloseJar, this);
     this.closeX.visible = false;
 };
@@ -59,6 +60,7 @@ Museum.prototype.ShowJar = function(sprite, pointer)
 
 Museum.prototype.CloseJar = function (sprite, pointer)
 {
+    this.buttonUp(this.closeX);
     this.shared.EnableInput();
     this.viewjar.visible = false;
     this.closeX.visible = false;
@@ -80,3 +82,14 @@ Museum.prototype.SetInput = function (input)
         this.museumObjects[i].inputEnabled = input;
     }
 };
+
+Museum.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+Museum.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
+}

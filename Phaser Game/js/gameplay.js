@@ -72,6 +72,7 @@ gameplayState.prototype.create = function(){
 
 	//windowsprite buttons
 	this.closeX.inputEnabled = true;
+	this.closeX.events.onInputDown.add(this.buttonDown, this);
 	this.closeX.events.onInputUp.add(this.close, this);
 
 	//bring window sprites to front, center, and turn invisible
@@ -176,6 +177,7 @@ gameplayState.prototype.DisableInput = function ()
 
 //close all window sprites
 gameplayState.prototype.close = function(sprite, pointer){
+	this.buttonUp(this.closeX);
 	for (var i = 0; i < this.windowSprites.length; i++){
 		this.windowSprites[i].visible = false;
 	}

@@ -25,6 +25,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("rightArrow", "assets/rightArrow.png");
 	game.load.image("leftArrow", "assets/leftArrow.png");
 	game.load.image("mainStartButton", "assets/startBotton.png");
+	game.load.image("submit", "assets/submit.png");
 
 	//object sprites
 	game.load.image("heart", "assets/heart.png");

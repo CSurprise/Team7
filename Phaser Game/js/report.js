@@ -28,7 +28,8 @@ let Report = function (x, y, caseText, diseases, solution)
         this.selectors.push(new DiseaseSelector(x, y + (i * 200) + 200, this.diseases));
     }
 
-    this.submit = game.add.sprite(x, y + 1000, "jar1");
+    this.submit = game.add.sprite(0, y + 1000, "submit");
+    this.submit.x = (game.world.width - this.submit.width)/2;
     this.submit.inputEnabled = true;
     this.submit.events.onInputUp.add(this.evaluate, this);
 };

@@ -18,11 +18,11 @@ let Museum = function (shared)
     }
     
     this.uiJars = [];
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
 
     // anchor everything
     for (var i = 0; i < this.uiJars.length; i++)

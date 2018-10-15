@@ -46,11 +46,11 @@ preloadState.prototype.preload = function(){
 
 	//spritesheets and jars
 	game.load.spritesheet("booksheet", "assets/booksheet.png", 900, 1500);
-	game.load.image("viewjar1", "assets/viewjar1.png");
-	game.load.image("viewjar2", "assets/viewjar2.png");
-	game.load.image("viewjar3", "assets/viewjar3.png");
-	game.load.image("viewjar4", "assets/viewjar4.png");
-	game.load.image("viewjar5", "assets/viewjar5.png");
+	game.load.image("viewjar1H", "assets/viewjar1HealthyHeart.png");
+	game.load.image("viewjar2H", "assets/viewjar2HealthyLungs.png");
+	game.load.image("viewjar3H", "assets/viewjar3HealthyLiver.png");
+	game.load.image("viewjar4H", "assets/viewjar4HealthyStomach.png");
+	game.load.image("viewjar5H", "assets/viewjar5HealthyIntestines.png");
 	game.load.json("bookD", "assets/LevelData/bookData.json");
 	game.load.json("jarD", "assets/LevelData/jarText.json");
 };

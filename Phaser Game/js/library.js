@@ -1,14 +1,8 @@
-let Library = function (shared)
+let Library = function (shared, bookText)
 {
     this.shared = shared;
 
-    this.books = [
-        ["b1p1","b1p2","b1p3"],
-        ["b2p1","b2p2","b2p3"],
-		["b3p1","b3p2","b3p3"],
-		["b4p1","b4p2","b4p3"],
-		["b5p1","b5p2","b5p3"]
-    ];
+    this.books = bookText;
     this.book = 0;
     this.page = 0;
 
@@ -22,8 +16,9 @@ let Library = function (shared)
 	this.libraryObjects.push(game.add.sprite(669,1141,"book4"));
 	this.libraryObjects.push(game.add.sprite(10,852,"book5"));
 	
-	this.booksheet = game.add.sprite(game.world.width/2, game.world.height/2, "booksheet");
+	this.booksheet = game.add.sprite(game.world.width/2 - 400, game.world.height/2, "booksheet");
 	this.booksheet.anchor.set(0.5,0.5);
+	this.booksheet.scale.set(2,2);
 	this.booksheet.animations.add("next", [0,1,2,3,4,5,6], 10, false);
     this.booksheet.animations.add("prev", [6,5,4,3,2,1,0], 10, false);
     
@@ -50,7 +45,7 @@ let Library = function (shared)
 		this.libraryObjects[i].events.onInputUp.add(this.OpenBook, this);
     }
     
-    this.pageText = game.add.existing(new Phaser.Text(game, 650, 1100, "", {
+    this.pageText = game.add.existing(new Phaser.Text(game, 200, 600, "", {
 		font:'bold 20pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
@@ -65,11 +60,12 @@ let Library = function (shared)
 
 Library.prototype.OpenBook = function (sprite, pointer)
 { // TODO fix
+	this.shared.DisableInput();
     this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
 	this.leftArrow.visible = true;
-	this.shared.reading = "book";
+	this.shared.reading = true;
 
 	//determine book
 	if      (sprite == this.libraryObjects[0]) { this.book = 0; }
@@ -86,11 +82,12 @@ Library.prototype.OpenBook = function (sprite, pointer)
 
 Library.prototype.CloseBook = function (sprite, pointer)
 { // TODO implement
+	this.shared.EnableInput();
 	this.booksheet.visible = false;
 	this.closeX.visible = false;
 	this.rightArrow.visible = false;
 	this.leftArrow.visible = false;
-	this.shared.reading = "none";
+	this.shared.reading = false;
 	this.pageText.visible = false;
 };
 

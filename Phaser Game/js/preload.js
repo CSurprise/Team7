@@ -43,6 +43,9 @@ preloadState.prototype.preload = function(){
 	game.load.image("jar3", "assets/jar3.png");
 	game.load.image("jar4", "assets/jar4.png");
 	game.load.image("jar5", "assets/jar5.png");
+	game.load.image("jar6", "assets/jar6.png");
+	game.load.image("jar7", "assets/jar7.png");
+
 
 	//zoom in sprites
 	game.load.spritesheet("booksheet", "assets/booksheet.png", 900, 1500);

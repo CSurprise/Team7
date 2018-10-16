@@ -11,10 +11,8 @@ let gameplayState = function () {};
 gameplayState.prototype.create = function(){
 
 	// A VARIABLE FOR ANYTHING THAT NEEDS TO BE SHARED BETWEEN SCENES
-	let newEnableInput  = function (state) { state.EnableInput(); };
-	let newDisableInput = function (state) { state.DisableInput(); };
-	let sharedEnableInput  = () => { newEnableInput(this);  };
-	let sharedDisableInput = () => { newDisableInput(this); };
+	let sharedEnableInput  = () => { this.EnableInput();  };
+	let sharedDisableInput = () => { this.DisableInput(); };
 
 	this.shared = 
 	{

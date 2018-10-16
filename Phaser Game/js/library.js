@@ -162,7 +162,7 @@ Library.prototype.SetInput = function (input)
 {
     for (var i = 0; i < this.libraryObjects.length; i++)
     {
-        this.libraryObjects.inputEnabled = input;
+        this.libraryObjects[i].inputEnabled = input;
     }
 };
 

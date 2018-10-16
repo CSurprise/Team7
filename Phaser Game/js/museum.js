@@ -1,5 +1,9 @@
 let Museum = function (shared)
 {
+
+    this.jarSelectSound = game.add.audio("JarSelect", 3, false);
+    this.closeSound = game.add.audio("SelectSound", 3, false);
+
     this.shared = shared;
 
     this.museum = game.add.sprite(0,0,"museum");
@@ -25,8 +29,8 @@ let Museum = function (shared)
     this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
 
     this.jarText = game.cache.getJSON("jarD"); 
-    this.pageText = game.add.existing(new Phaser.Text(game, 500, 1750, "", { 
-		font:'bold 32pt Arial', 
+    this.pageText = game.add.existing(new Phaser.Text(game, 330, 1750, "", { 
+		font:'bold 30pt Arial', 
 		wordWrap:true, 
 		wordWrapWidth:650 
 	})); 
@@ -56,6 +60,7 @@ Museum.prototype.DisableInput = function () { this.SetInput(false); };
 // do a curried function thing here so there's not this big case statement
 Museum.prototype.ShowJar = function(sprite, pointer) 
 {
+    this.jarSelectSound.play(); 
     this.shared.DisableInput();
     this.viewjar = null;
     for (var i = 0; i < this.museumObjects.length; i++)
@@ -74,6 +79,7 @@ Museum.prototype.ShowJar = function(sprite, pointer)
 
 Museum.prototype.CloseJar = function (sprite, pointer)
 {
+    this.closeSound.play(); 
     this.buttonUp(this.closeX);
     this.shared.EnableInput();
     this.viewjar.visible = false;

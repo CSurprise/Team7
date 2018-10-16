@@ -3,6 +3,9 @@ let menu = function(){
 };
 
 menu.prototype.create = function(){
+    this.backMus = game.add.audio("Background Music", 1, true);
+    this.backMus.play();
+    this.selectSound = game.add.audio("SelectSound", 1, false);
     this.background = game.add.sprite(0,0,"startMenu");
     this.startButton = game.add.sprite(0,0,"mainStartButton");
     this.overlay = game.add.sprite(0,0,"overlay");
@@ -48,6 +51,7 @@ menu.prototype.startGame = function(){
 };
 
 menu.prototype.buttonDown = function(sprite){
+    this.selectSound.play(); 
 	sprite.scale.set(.8,.8);
 	sprite.x += sprite.width*.1;
 	sprite.y += sprite.height*.1;

@@ -3,8 +3,6 @@ let menu = function(){
 };
 
 menu.prototype.create = function(){
-    this.backMus = game.add.audio("Background Music", 1, true);
-    this.backMus.play();
     this.selectSound = game.add.audio("SelectSound", 1, false);
     this.background = game.add.sprite(0,0,"startMenu");
     this.startButton = game.add.sprite(0,0,"mainStartButton");

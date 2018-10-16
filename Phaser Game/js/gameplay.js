@@ -11,7 +11,7 @@ let gameplayState = function () {};
 gameplayState.prototype.create = function(){
 
 	this.selectSound = game.add.audio("SelectSound", 3, false);
-
+	
 	// A VARIABLE FOR ANYTHING THAT NEEDS TO BE SHARED BETWEEN SCENES
 	let sharedEnableInput  = () => { this.EnableInput();  };
 	let sharedDisableInput = () => { this.DisableInput(); };

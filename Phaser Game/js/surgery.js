@@ -8,11 +8,11 @@ let Surgery = function (shared)
     this.surgery = game.add.sprite(0,0,"surgery");
 
     this.surgeryObjects = [];
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}])));
-	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}])));
-    this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1433,"intestines",[{x:240,y:430,angle:0}],shared)));
+	this.surgeryObjects.push(game.add.existing(new Organ(537,1135,"stomach",[{x:150,y:0,angle:0},{x:20,y:270,angle:0}],shared)));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,1177,"liver",[{x:170,y:0,angle:0}],shared)));
+	this.surgeryObjects.push(game.add.existing(new Organ(366,737,"lungs",[{x:210,y:0,angle:0}],shared)));
+    this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}],shared)));
     
     this.uiOrgans = [];
     this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "intestinesSick"));
@@ -60,6 +60,7 @@ Surgery.prototype.AddToInventory = function (sprite, pointer) {
             sprite.input.draggable = false;
             sprite.events.onInputDown.add(this.buttonDownOrgan, this);
             sprite.events.onInputUp.add(this.ShowOrgan, this);
+            this.shared.holdingOrgan = false;
 		}
 	}    
 };

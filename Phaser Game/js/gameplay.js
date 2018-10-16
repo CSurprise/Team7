@@ -20,6 +20,7 @@ gameplayState.prototype.create = function(){
 	{
 		inventorySize: 0, // Size of the inventory
 		reading: false,   // if we're reading
+		holdingOrgan: false,
 		EnableInput:  function () { sharedEnableInput();  },
 		DisableInput: function () { sharedDisableInput(); }
 	};
@@ -107,7 +108,7 @@ gameplayState.prototype.update = function()
 	// check for a swipe -- Inspired by https://gist.github.com/eguneys/5cf315287f9fbf413769
     swipe_length = Phaser.Point.distance(game.input.activePointer.position, game.input.activePointer.positionDown);
     swipe_time = game.input.activePointer.duration;
-    if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250 && this.location === 'surgery')
+    if (swipe_length > 100 && swipe_time > -1 && swipe_time < 250 && this.location === 'surgery' && !this.shared.holdingOrgan)
     {
         this.surgeryScene.HandleSwipe(new Phaser.Line(
 			game.input.activePointer.positionDown.x, game.input.activePointer.positionDown.y,

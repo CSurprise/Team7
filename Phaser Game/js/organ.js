@@ -1,5 +1,6 @@
-let Organ = function (x, y, sprite, cuts)
+let Organ = function (x, y, sprite, cuts, shared)
 {
+    this.shared = shared;
     // essentially a super() call
     Phaser.Sprite.call(this, game, x, y, sprite);
 
@@ -85,6 +86,12 @@ Organ.prototype.check_cut = function (cut)
         {
             this.inputEnabled = true;
             this.input.enableDrag(true);
+            this.events.onDragStart.add(
+                function () { this.shared.holdingOrgan = true; }, this
+            );
+            this.events.onDragStop.add(
+                function () { this.shared.holdingOrgan = false; }, this
+            );
         }
     }
     //console.log(this.free);

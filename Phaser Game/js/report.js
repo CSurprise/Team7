@@ -41,7 +41,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.finalText.anchor.set(0.5,0.5)
     this.finalText.visible = false;
 
-    this.returnToMenuButton = game.add.sprite(game.world.width/2, game.world.height - 300, "submit");
+    this.returnToMenuButton = game.add.sprite(game.world.width/2, game.world.height - 300, "menuButton");
     this.returnToMenuButton.anchor.set(0.5, 0.5);
     this.returnToMenuButton.events.onInputUp.add(function (sprite, pointer){
         game.state.start("Menu");

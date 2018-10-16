@@ -13,11 +13,11 @@ let Surgery = function (shared)
     this.surgeryObjects.push(game.add.existing(new Organ(549,839,"heart",[{x:50,y:0,angle:2*Math.PI-0.25}])));
     
     this.uiOrgans = [];
-    this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
-	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-    this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
+    this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "intestinesSick"));
+	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "stomachSick"));
+	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "liverSick"));
+	this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "lungsSick"));
+    this.uiOrgans.push(game.add.sprite(game.world.width/2, game.world.height/2, "heartSick"));
 
     // anchor everything
     for (var i = 0; i < this.uiOrgans.length; i++)

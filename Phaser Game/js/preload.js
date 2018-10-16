@@ -90,7 +90,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("menuButton", "assets/mainmenu.png");
 	game.load.image("whiteLine", "assets/whiteLine.png");
 
-	game.load.audio("Background Music", "assets/Music/BackMu.mp4");
+	game.load.audio("Background Music", "assets/Music/BackMu.wav");
 	game.load.audio("SelectSound", "assets/Music/select.wav");
 	game.load.audio("JarSelect", "assets/Music/clink.wav");
 	game.load.audio("BookSelect", "assets/Music/bookPoof.wav");

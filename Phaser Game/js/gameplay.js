@@ -85,7 +85,7 @@ gameplayState.prototype.create = function(){
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
 	this.diseaseNames = ["Disease A","B Syndrome","Infection Type C"];
-	this.solution = ["B Syndrome", "Disease A"];
+	this.solution = ["B Syndrome", "Disease A", "Infection Type C"];
 	this.caseText = 'Name: Wyatt Claude\nRace: Caucasian\nAge: 45\nGender: Male\nAlignment: Farmer\nReligion: Christian\nWeight: 86.2kg\nHeight: 1.88m\n' +
 	'Background: A rural potato farmer, Wyatt was always outside in his potato farm. Most days he'+
 	'did not wear shoes and would spend all day from morning to night tending to the potatoes only'+

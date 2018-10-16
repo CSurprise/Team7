@@ -52,6 +52,11 @@ preloadState.prototype.preload = function(){
 	game.load.image("viewjar5", "assets/viewjar5.png");
 	game.load.json("bookD", "assets/LevelData/bookData.json");
 	game.load.json("jarD", "assets/LevelData/jarText.json");
+
+	game.load.image("gradeF", "assets/Fail.png");
+	game.load.image("gradeC", "assets/Cgrade.png");
+	game.load.image("gradeB", "assets/Bgrade.png");
+	game.load.image("gradeA", "assets/Agrade.png");
 };
 
 preloadState.prototype.create = function(){

@@ -5,12 +5,14 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.diseases = diseases;
     this.solution = solution.slice().sort();
 
+    this.textIndex = 0;
+
     /* CASE REPORT OBJECTS */
     this.toSubmitArrow = game.add.sprite(x + 500, y, "rightArrow");
     this.toSubmitArrow.inputEnabled = true;
     this.toSubmitArrow.events.onInputUp.add(this.toSubmit, this);
     // create the case text object
-    this.caseTextObject = game.add.existing(new Phaser.Text(game, x, y + 200, this.caseText, {
+    this.caseTextObject = game.add.existing(new Phaser.Text(game, x, y + 200, this.caseText[this.textIndex], {
 		font:'bold 20pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
@@ -80,11 +82,13 @@ Report.prototype.toReport = function ()
     this.submit.visible = false;
     // enable report objects
     this.caseTextObject.visible = true;
+    this.caseTextObject.text = this.caseText[this.textIndex];
     this.toSubmitArrow.visible = true;
+ 
 };
 
 Report.prototype.toSubmit = function ()
-{    
+{   
     // disable report objects
     this.caseTextObject.visible = false;
     this.toSubmitArrow.visible = false;

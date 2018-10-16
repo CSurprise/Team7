@@ -1,7 +1,12 @@
 let Library = function (shared, bookText)
 {
-    this.shared = shared;
 
+	this.pageTurnSound = game.add.audio("PageTurn", 3, false);
+	this.bookSelectSound = game.add.audio("BookSelect", 3, false);
+	this.closeSound = game.add.audio("SelectSound", 3, false);
+	
+    this.shared = shared;
+	
     this.books = bookText;
     this.book = 0;
     this.page = 0;
@@ -60,6 +65,7 @@ let Library = function (shared, bookText)
 
 Library.prototype.OpenBook = function (sprite, pointer)
 {
+	this.bookSelectSound.play(); 
 	this.shared.DisableInput();
     this.booksheet.visible = true;
 	this.closeX.visible = true;
@@ -81,6 +87,7 @@ Library.prototype.OpenBook = function (sprite, pointer)
 
 Library.prototype.CloseBook = function (sprite, pointer)
 { // TODO implement
+	this.closeSound.play(); 
 	this.buttonUp(this.closeX);
 	this.shared.EnableInput();
 	this.booksheet.visible = false;
@@ -93,6 +100,7 @@ Library.prototype.CloseBook = function (sprite, pointer)
 
 Library.prototype.NextPage = function (sprite, pointer)
 {
+	this.pageTurnSound.play(); 
     if (this.page < this.books[this.book].length-1){
 		this.page++;
 		this.rightArrow.visible = false;
@@ -109,6 +117,7 @@ Library.prototype.NextPage = function (sprite, pointer)
 
 Library.prototype.PrevPage = function (sprite, pointer)
 {
+	this.pageTurnSound.play(); 
     if (this.page > 0){
 		this.page--;
 		this.leftArrow.visible = false;

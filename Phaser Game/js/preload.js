@@ -67,6 +67,13 @@ preloadState.prototype.preload = function(){
 	game.load.image("gradeA", "assets/Agrade.png");
 
 	game.load.image("overlay", "assets/dark_overlay.png");
+
+	game.load.audio("Background Music", "assets/Music/BackMu.mp4");
+	game.load.audio("SelectSound", "assets/Music/select.wav");
+	game.load.audio("JarSelect", "assets/Music/clink.wav");
+	game.load.audio("BookSelect", "assets/Music/bookPoof.wav");
+	game.load.audio("PageTurn", "assets/Music/pageTurn.mp3");
+	game.load.audio("Cut", "assets/Music/cut.wav");
 };
 
 preloadState.prototype.create = function(){

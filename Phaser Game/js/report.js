@@ -24,7 +24,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.selectors = [];
     for (var i = 0; i < this.solution.length; i++)
     {
-        this.selectors.push(new DiseaseSelector(x, y + (i * 200) + 200, this.diseases));
+        this.selectors.push(new DiseaseSelector(x, y + (i * 150) + 200, this.diseases));
     }
 
     this.submit = game.add.sprite(0, y + 1000, "submit");
@@ -36,7 +36,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.overlay = game.add.sprite(0, 0, "overlay");
     this.overlay.visible = false;
     this.finalText = game.add.text(game.world.width/2, game.world.height/2, "",
-        { fill: '#ffffff', fontSize:40, align:'center', wordWrapWidth: 800 }
+        { fill: '#ffffff', fontSize:40, align:'center', wordWrap: true, wordWrapWidth: 800 }
     );
     this.finalText.anchor.set(0.5,0.5)
     this.finalText.visible = false;
@@ -111,20 +111,47 @@ Report.prototype.evaluate = function ()
 Report.prototype.end = function (result)
 {
     let grades = ["gradeF", "gradeC", "gradeB", "gradeA"];
+    let outroTextPossible = [
+        "Did you even attend Tan Teck Guan?!?!?! If F is for future then your future looks like its gonna be full of Fs.",
+        "Just remember kid, C’s get degrees. Just don't expect to get hired as a doctor anywhere important.",
+        "You put the B in Bee’s knees kid. Get it? Because you got a B. Hopefully you don't contract Yellow Jacket Stomach disease because that’s a killer but you knew that already didn't you.",
+        "If they made a Baywatch for Doctors, you would be on it. Why not save the world, kid?"
+    ];
     let index = Math.round(result*(grades.length-1));
     let grade = grades[index];
+    this.outroText = outroTextPossible[index];
     // do the stamp thing
-    // do the overlay
-    this.overlay.visible = true;
-    game.world.bringToTop(this.overlay);
-    this.finalText.visible = true;
-    this.finalText.text = "Congratulations! You got a " + grade + "!";
-    game.world.bringToTop(this.finalText);
-    this.returnToMenuButton.visible = true;
-    this.returnToMenuButton.inputEnabled = true;
-    game.world.bringToTop(this.returnToMenuButton);
     this.disableInput();
+    let gradeSprite = game.add.sprite(game.world.width/2, game.world.height/2, grades[index]);
+    gradeSprite.anchor.set(0.5, 0.5);
+    gradeSprite.scale.setTo(2, 2);
+    gradeSprite.angle = -35;
+    gradeSprite.alpha = 0;
+    let gradeSpriteTween = game.add.tween(gradeSprite);
+    gradeSpriteTween.to({alpha:1}, 500, Phaser.Easing.Quintic.In);
+    gradeSpriteTween.onComplete.add(this.displayFinal, this);
+    gradeSpriteTween.start();
+    game.add.tween(gradeSprite.scale).to({x:0.6,y:0.6}, 500, Phaser.Easing.Quintic.In, true);
+
 };
+
+Report.prototype.displayFinal = function ()
+{
+    game.add.tween({empty:0})
+        .to({empty:0}, 750, Phaser.Easing.Linear.None, true)
+        .onComplete.add(
+            function () {
+                this.overlay.visible = true;
+                game.world.bringToTop(this.overlay);
+                this.finalText.visible = true;
+                this.finalText.text = this.outroText;
+                game.world.bringToTop(this.finalText);
+                this.returnToMenuButton.visible = true;
+                this.returnToMenuButton.inputEnabled = true;
+                game.world.bringToTop(this.returnToMenuButton);
+            }, this
+        );
+}
 
 Report.prototype.buttonDown = function(sprite){
 	sprite.scale.set(.8,.8);

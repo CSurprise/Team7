@@ -9,11 +9,30 @@ let Museum = function (shared)
     this.museum = game.add.sprite(0,0,"museum");
     
     this.museumObjects = [];
-	this.museumObjects.push(game.add.sprite(374,1027,"jar1"));
-	this.museumObjects.push(game.add.sprite(457,1034,"jar2"));
-	this.museumObjects.push(game.add.sprite(589,1037,"jar3"));
-	this.museumObjects.push(game.add.sprite(738,1029,"jar4"));
-    this.museumObjects.push(game.add.sprite(259,1029,"jar5"));
+    //layer1
+    this.museumObjects.push(game.add.sprite(255,541,"jar1"));
+	this.museumObjects.push(game.add.sprite(336,550,"jar6"));
+	this.museumObjects.push(game.add.sprite(483,545,"jar1"));
+	this.museumObjects.push(game.add.sprite(574,550,"jar7"));
+    this.museumObjects.push(game.add.sprite(726,544,"jar5"));
+    //layer2
+    this.museumObjects.push(game.add.sprite(316,794,"jar4"));
+	this.museumObjects.push(game.add.sprite(407,794,"jar4"));
+	this.museumObjects.push(game.add.sprite(475,794,"jar6"));
+	this.museumObjects.push(game.add.sprite(615,787,"jar1"));
+    this.museumObjects.push(game.add.sprite(716,791,"jar5"));
+    //layer3
+	this.museumObjects.push(game.add.sprite(245,1031,"jar5"));
+	this.museumObjects.push(game.add.sprite(358,1031,"jar4"));
+	this.museumObjects.push(game.add.sprite(436,1034,"jar2"));
+	this.museumObjects.push(game.add.sprite(564,1032,"jar3"));
+    this.museumObjects.push(game.add.sprite(706,1031,"jar7"));
+    //layer4
+    this.museumObjects.push(game.add.sprite(277,1286,"jar4"));
+	this.museumObjects.push(game.add.sprite(358,1282,"jar1"));
+	this.museumObjects.push(game.add.sprite(431,1287,"jar2"));
+	this.museumObjects.push(game.add.sprite(573,1296,"jar3"));
+    this.museumObjects.push(game.add.sprite(726,1286,"jar5"));
     
     for (var i = 0; i < this.museumObjects.length; i++)
     {
@@ -22,11 +41,30 @@ let Museum = function (shared)
     }
     
     this.uiJars = [];
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
+    //layer1
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar11"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar31"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar12"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar21"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar51"));
+    //layer2
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar41"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar42"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar32"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar13"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar52"));
+    //layer3
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar53"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar43"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar22"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar33"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar23"));
+    //layer4
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar44"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar24"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5"));
 
     this.jarText = game.cache.getJSON("jarD"); 
     this.pageText = game.add.existing(new Phaser.Text(game, 330, 1750, "", { 

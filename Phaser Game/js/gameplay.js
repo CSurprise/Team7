@@ -31,9 +31,7 @@ gameplayState.prototype.create = function(){
 	this.bookData = game.cache.getJSON("bookD");
 	this.getBookText();
 	
-	this.jarText = [];
-	this.jarData = game.cache.getJSON("jarD");
-	this.getJarText();
+
 
 	//UI sprites
 	this.locations = game.add.sprite(0, 0, "locations");

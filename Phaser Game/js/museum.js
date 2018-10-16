@@ -24,6 +24,15 @@ let Museum = function (shared)
 	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
     this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
 
+    this.jarText = game.cache.getJSON("jarD"); 
+    this.pageText = game.add.existing(new Phaser.Text(game, 500, 1750, "", { 
+		font:'bold 32pt Arial', 
+		wordWrap:true, 
+		wordWrapWidth:650 
+	})); 
+ 
+
+
     // anchor everything
     for (var i = 0; i < this.uiJars.length; i++)
     {
@@ -51,11 +60,16 @@ Museum.prototype.ShowJar = function(sprite, pointer)
     this.viewjar = null;
     for (var i = 0; i < this.museumObjects.length; i++)
     {
-        if (sprite == this.museumObjects[i]) { this.viewjar = this.uiJars[i]; break; }
+        if (sprite == this.museumObjects[i]) {  
+            this.viewjar = this.uiJars[i];  
+            this.pageText.setText(this.jarText.Jars[i]);  
+            break;  
+        }  
     }
 	this.viewjar.visible = true;
 	this.closeX.visible = true;
     this.shared.reading = true;
+    this.pageText.visible = true;  
 }
 
 Museum.prototype.CloseJar = function (sprite, pointer)
@@ -65,6 +79,7 @@ Museum.prototype.CloseJar = function (sprite, pointer)
     this.viewjar.visible = false;
     this.closeX.visible = false;
     this.shared.reading = false;
+    this.pageText.visible = false; 
 }
 
 Museum.prototype.SetVisibility = function (vis)

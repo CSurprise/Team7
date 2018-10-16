@@ -32,7 +32,7 @@ Surgery.prototype.AddToInventory = function (sprite, pointer) {
 			this.shared.inventorySize++;
 			sprite.scale.set(.4,.4);
 			sprite.x = this.shared.inventorySize*200 - 100;
-			sprite.y = 2250;
+			sprite.y = 2220;
 			sprite.input.draggable = false;
 		}
 	}    

@@ -29,9 +29,7 @@ gameplayState.prototype.create = function(){
 	this.bookData = game.cache.getJSON("bookD");
 	this.getBookText();
 	
-	this.jarText = [];
-	this.jarData = game.cache.getJSON("jarD");
-	this.getJarText();
+
 
 	//UI sprites
 	this.locations = game.add.sprite(0, 0, "locations");
@@ -42,9 +40,9 @@ gameplayState.prototype.create = function(){
 	this.docIcon = game.add.sprite(900, 90, "docIcon");
 
 	// Setup all scenes
-	this.surgeryScene = new Surgery(this.shared);
 	this.museumScene = new Museum(this.shared, this.jarText);
 	this.libraryScene = new Library(this.shared, this.books);
+	this.surgeryScene = new Surgery(this.shared);
 
 	//document sprites
 	this.document = game.add.sprite(0, 0, "document");
@@ -56,16 +54,21 @@ gameplayState.prototype.create = function(){
 
 	//allow input for buttons
 	this.surgeryIcon.inputEnabled = true;
+	this.surgeryIcon.events.onInputDown.add(this.buttonDown, this);
 	this.surgeryIcon.events.onInputUp.add(this.surgeryIconTap, this);
 	this.libraryIcon.inputEnabled = true;
+	this.libraryIcon.events.onInputDown.add(this.buttonDown, this);
 	this.libraryIcon.events.onInputUp.add(this.libraryIconTap, this);
 	this.museumIcon.inputEnabled = true;
+	this.museumIcon.events.onInputDown.add(this.buttonDown, this);
 	this.museumIcon.events.onInputUp.add(this.museumIconTap, this);
 	this.docIcon.inputEnabled = true;
+	this.docIcon.events.onInputDown.add(this.buttonDown, this);
 	this.docIcon.events.onInputUp.add(this.docIconTap, this);
 
 	//windowsprite buttons
 	this.closeX.inputEnabled = true;
+	this.closeX.events.onInputDown.add(this.buttonDown, this);
 	this.closeX.events.onInputUp.add(this.close, this);
 
 	//bring window sprites to front, center, and turn invisible
@@ -136,15 +139,19 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
+	this.buttonUp(this.surgeryIcon);
 	if (!this.shared.reading) { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
+	this.buttonUp(this.libraryIcon);
 	if (!this.shared.reading) { this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
+	this.buttonUp(this.museumIcon);
 	if (!this.shared.reading) { this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
+	this.buttonUp(this.docIcon);
 	if (!this.shared.reading) {
 		this.document.visible = true;
 		this.report.toReport();
@@ -169,6 +176,7 @@ gameplayState.prototype.DisableInput = function ()
 
 //close all window sprites
 gameplayState.prototype.close = function(sprite, pointer){
+	this.buttonUp(this.closeX);
 	for (var i = 0; i < this.windowSprites.length; i++){
 		this.windowSprites[i].visible = false;
 	}
@@ -187,6 +195,16 @@ gameplayState.prototype.center = function(sprite){
 gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.x = X;
 	sprite.y = Y;
+}
+gameplayState.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+gameplayState.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
 }
 
 gameplayState.prototype.getBookText = function(){

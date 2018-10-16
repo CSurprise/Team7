@@ -23,7 +23,6 @@ let Library = function (shared, bookText)
     this.booksheet.animations.add("prev", [6,5,4,3,2,1,0], 10, false);
     
     this.closeX = game.add.sprite(910,430,"closeX");
-
     this.rightArrow = game.add.sprite(850,1800,"rightArrow");
     this.leftArrow = game.add.sprite(150,1800,"leftArrow");
     
@@ -32,6 +31,7 @@ let Library = function (shared, bookText)
 	this.leftArrow.inputEnabled = true;
 	this.leftArrow.events.onInputUp.add(this.PrevPage, this);
 	this.closeX.inputEnabled = true;
+	this.closeX.events.onInputDown.add(this.buttonDown, this);
 	this.closeX.events.onInputUp.add(this.CloseBook, this);
     
     // set up some stuff for the zooming
@@ -59,12 +59,11 @@ let Library = function (shared, bookText)
 };
 
 Library.prototype.OpenBook = function (sprite, pointer)
-{ // TODO fix
+{
 	this.shared.DisableInput();
     this.booksheet.visible = true;
 	this.closeX.visible = true;
 	this.rightArrow.visible = true;
-	this.leftArrow.visible = true;
 	this.shared.reading = true;
 
 	//determine book
@@ -82,6 +81,7 @@ Library.prototype.OpenBook = function (sprite, pointer)
 
 Library.prototype.CloseBook = function (sprite, pointer)
 { // TODO implement
+	this.buttonUp(this.closeX);
 	this.shared.EnableInput();
 	this.booksheet.visible = false;
 	this.closeX.visible = false;
@@ -93,14 +93,15 @@ Library.prototype.CloseBook = function (sprite, pointer)
 
 Library.prototype.NextPage = function (sprite, pointer)
 {
-    if (this.page < this.books[this.book].length - 1){
+    if (this.page < this.books[this.book].length-1){
 		this.page++;
 		this.rightArrow.visible = false;
 		this.pageText.visible = false;
 		this.pageText.setText(this.books[this.book][this.page]);
 		this.booksheet.animations.play("next");
 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-			this.rightArrow.visible = true;
+			if (this.page != this.books[this.book].length-1) {this.rightArrow.visible = true;}
+			if (this.page != 0) {this.leftArrow.visible = true;}
 			this.pageText.visible = true;
 		}, this);
 	}
@@ -115,7 +116,8 @@ Library.prototype.PrevPage = function (sprite, pointer)
 		this.pageText.setText(this.books[this.book][this.page]);
 		this.booksheet.animations.play("prev");
 		this.booksheet.animations.currentAnim.onComplete.add(function(){
-			this.leftArrow.visible = true;
+			if (this.page != this.books[this.book].length-1) {this.rightArrow.visible = true;}
+			if (this.page != 0) {this.leftArrow.visible = true;}
 			this.pageText.visible = true;
 		}, this);
 	}
@@ -126,8 +128,8 @@ Library.prototype.Zoom = function ()
 {
 	this.library.visible = true;
 	for (var i = 0; i < this.libraryObjects.length; i++)
-    {
-        this.libraryObjects[i].visible = true;
+	{
+		this.libraryObjects[i].visible = true;
 	}
 	this.libraryFront.visible = false;
 };
@@ -154,3 +156,14 @@ Library.prototype.SetInput = function (input)
         this.libraryObjects.inputEnabled = input;
     }
 };
+
+Library.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.8,.8);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+Library.prototype.buttonUp = function(sprite){
+	sprite.scale.set(1, 1);
+	sprite.x -= sprite.width*.08;
+	sprite.y -= sprite.height*.08;
+}

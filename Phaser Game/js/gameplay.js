@@ -42,9 +42,9 @@ gameplayState.prototype.create = function(){
 	this.docIcon = game.add.sprite(900, 90, "docIcon");
 
 	// Setup all scenes
-	this.surgeryScene = new Surgery(this.shared);
 	this.museumScene = new Museum(this.shared, this.jarText);
 	this.libraryScene = new Library(this.shared, this.books);
+	this.surgeryScene = new Surgery(this.shared);
 
 	//document sprites
 	this.document = game.add.sprite(0, 0, "document");

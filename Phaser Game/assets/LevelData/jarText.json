@@ -1,7 +1,22 @@
 {"Jars": 
-    [ "disease1",
-    "disease2",
-    "disease3",
-    "disease4",
-    "disease5"]
+    ["Healthy Heart",
+    "Bluish, Deoxygenated Heart",
+    "Dark, Caved in and\nRotting Heart",
+    "Healthy Lungs",
+    "One Healthy Lung and\nAnother Half Formed Lung",
+    "Both Lungs are not Fully Formed",
+    "Infected Lung with protruding veins",
+    "Healthy Liver",
+    "Spotted Liver",
+    "Masses Growing off the Liver",
+    "Healthy Stomach",
+    "Cut Up Stomach",
+    "Bloodied Stomach",
+    "Bloated Stomach",
+    "Healthy Intestines",
+    "Knotted and Tied Together Intestines",
+    "Cut Up and Holes in the Isntestines"
+
+
+]
 }

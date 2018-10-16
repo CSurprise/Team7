@@ -4,7 +4,7 @@ let Library = function (shared, bookText)
 	this.pageTurnSound = game.add.audio("PageTurn", 3, false);
 	this.bookSelectSound = game.add.audio("BookSelect", 3, false);
 	this.closeSound = game.add.audio("SelectSound", 3, false);
-	
+
     this.shared = shared;
 	
     this.books = bookText;
@@ -51,7 +51,7 @@ let Library = function (shared, bookText)
     }
     
     this.pageText = game.add.existing(new Phaser.Text(game, 200, 600, "", {
-		font:'bold 20pt Arial',
+		font:'bold 32pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
 	}));

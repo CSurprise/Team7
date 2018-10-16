@@ -51,11 +51,11 @@ preloadState.prototype.preload = function(){
 	game.load.image("viewjar3H", "assets/viewjar3HealthyLiver.png");
 	game.load.image("viewjar4H", "assets/viewjar4HealthyStomach.png");
 	game.load.image("viewjar5H", "assets/viewjar5HealthyIntestines.png");
-	game.load.image("heartSick", "assets/SickHeartZoom.png");
+	game.load.image("heartSick", "assets/SickHeartZoom1.png");
 	game.load.image("lungsSick", "assets/SickLungsZoom.png");
 	game.load.image("liverSick", "assets/SickLiverZoom.png");
 	game.load.image("stomachSick", "assets/SickStomachZoom.png");
-	game.load.image("intestinesSick", "assets/SickIntestinesZoom.png");
+	game.load.image("intestinesSick", "assets/SickIntestinesZoom1.png");
 
 	//json data
 	game.load.json("bookD", "assets/LevelData/bookData.json");

@@ -5,7 +5,13 @@ let menu = function(){
 menu.prototype.create = function(){
     this.selectSound = game.add.audio("SelectSound", 1, false);
     this.background = game.add.sprite(0,0,"startMenu");
-    this.startButton = game.add.sprite(0,0,"mainStartButton");
+    this.startButton = game.add.sprite(game.world.width/2,2000,"mainStartButton");
+    this.title = game.add.text(game.world.width/2, 500, "Know The Path!",
+        {align:'center', fontSize:250, fill:'#ffffff', 
+        wordWrap:true, wordWrapWidth: 900, strokeThickness:20});
+    this.title.anchor.set(0.5,0.5);
+    
+    this.startButton.anchor.set(0.5,0.5);
     this.overlay = game.add.sprite(0,0,"overlay");
     this.overlay.visible = false;
     
@@ -17,7 +23,7 @@ menu.prototype.create = function(){
     this.overlay.events.onInputDown.add(this.startGame, this);
 
     this.string = "The year is 1949, you are a medical student with a month left in the "+
-    "Pathology program of the Tan Tek Guanmedical school. Your last "+
+    "Pathology program of the Tan Tek Guan medical school. Your last "+
     "assignment to become a doctor is to identify the cause/causes of "+
     "death of a recently deceased man born and raised in the rural parts "+
     "of Singapore.\n\n\n\n\n\nWarning\n"+
@@ -42,6 +48,8 @@ menu.prototype.showOverlay = function(sprite, pointer){
     this.buttonUp(this.startButton);
     this.overlay.visible = true;
     this.text.visible = true;
+    this.title.visible = false;
+    this.startButton.visible = false;
 };
 
 menu.prototype.startGame = function(){

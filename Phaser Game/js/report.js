@@ -11,7 +11,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     /* CASE REPORT OBJECTS */
     this.toSubmitArrow = game.add.sprite(x + 500, y, "rightArrow");
     this.toSubmitArrow.inputEnabled = true;
-    this.toSubmitArrow.events.onInputUp.add(this.toSubmit, this);
+    this.toSubmitArrow.events.onInputUp.add(this.pageRight, this);
     // create the case text object
     this.caseTextObject = game.add.existing(new Phaser.Text(game, x, y + 200, this.caseText[this.pageNumber], {
 		font:'bold 20pt Arial',
@@ -22,7 +22,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     /* CASE SUBMIT OBJECTS */
     this.toReportArrow = game.add.sprite(x, y, "leftArrow");
     this.toReportArrow.inputEnabled = true;
-    this.toReportArrow.events.onInputUp.add(this.toReport, this);
+    this.toReportArrow.events.onInputUp.add(this.pageLeft, this);
     // instantiate selectors
     this.selectors = [];
     for (var i = 0; i < this.solution.length; i++)
@@ -50,6 +50,12 @@ let Report = function (x, y, caseText, diseases, solution, shared)
         game.state.start("Menu");
     }, this);
     this.returnToMenuButton.visible = false;
+
+    this.portrait = game.add.sprite(game.world.width/2, 600, "portrait");
+    this.portrait.anchor.set(0.5,0.5);
+    this.portrait.scale.set(0.5,0.5);
+    this.portrait.angle = -35;
+    this.portrait.visible = false;
 };
 
 Report.prototype.disable = function ()
@@ -61,6 +67,7 @@ Report.prototype.disable = function ()
     for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
     this.submit.visible = false;
     this.pageNumber = 0;
+    this.portrait.visible = false;
 };
 
 Report.prototype.disableInput = function ()
@@ -76,39 +83,53 @@ Report.prototype.disableInput = function ()
     this.shared.DisableInput();
 }
 
-Report.prototype.toReport = function ()
+Report.prototype.pageLeft = function () { this.pageNumber--; this.updatePage(); };
+Report.prototype.pageRight = function () { this.pageNumber++; this.updatePage(); };
+Report.prototype.updatePage = function () 
 {
-    this.pageNumber--;
     if (this.pageNumber === 0)
     {
-        this.caseTextObject.text = this.caseText[this.pageNumber];
-        this.toSubmitArrow.visible = true;
-    }
-    if (this.pageNumber === 1)
-    {
-        this.caseTextObject.text = this.caseText[this.pageNumber];
-        this.toReportArrow.visible = true;
-    }
-    else
-    {
-        // disable submit objects
-        this.toReportArrow.visible = false;
-        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
-        this.submit.visible = false;
-        // enable report objects
         this.caseTextObject.visible = true;
         this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toReportArrow.visible = false;
         this.toSubmitArrow.visible = true;
+        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
+        this.submit.visible = false;
     }
-};
+    else if (this.pageNumber === 1)
+    {
+        this.caseTextObject.visible = true;
+        this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toReportArrow.visible = true;
+        this.toSubmitArrow.visible = true;
+        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
+        this.submit.visible = false;     
+    }
+    else if (this.pageNumber === 2)
+    {
+        this.caseTextObject.visible = false;
+        //this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toReportArrow.visible = true;
+        this.toSubmitArrow.visible = false;
+        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(true); }
+        this.submit.visible = true;
+    }
+}
+
+Report.prototype.open = function ()
+{
+    this.portrait.visible = true;
+    this.pageNumber = 0;
+    this.updatePage();
+}
 
 Report.prototype.toSubmit = function ()
 {   
     this.pageNumber++;
-    if (this.pageNumber === 1)
+    if (this.pageNumber === 0)
     {
         this.caseTextObject.text = this.caseText[this.pageNumber];
-        this.toReportArrow.visible = true;
+        this.toReportArrow.visible = false;
     }
     else 
     {
@@ -117,8 +138,6 @@ Report.prototype.toSubmit = function ()
         this.toSubmitArrow.visible = false;
         // enabel submit objects  
         this.toReportArrow.visible = true;
-        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(true); }
-        this.submit.visible = true;
     }
     
 };

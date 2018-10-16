@@ -168,7 +168,7 @@ gameplayState.prototype.docIconTap = function(){
 	this.buttonUp(this.docIcon);
 	if (!this.shared.reading) {
 		this.document.visible = true;
-		this.report.toReport();
+		this.report.open();
 		this.closeX.visible = true;
 		this.shared.reading = true;
 	}

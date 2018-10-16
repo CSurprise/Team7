@@ -11,7 +11,8 @@ let DiseaseSelector = function(x, y, diseases)
     this.leftArrow.inputEnabled = true;
     this.leftArrow.events.onInputUp.add(this.left, this);
     this.selectedDisease = game.add.existing(
-        new Phaser.Text(game, x + 200, y + 50, this.diseases[this.index]));
+        new Phaser.Text(game, x + 150, y + 50, this.diseases[this.index],
+            {wordWrap:true, wordWrapWidth: 400}));
 }
 
 DiseaseSelector.prototype.right = function()

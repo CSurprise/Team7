@@ -95,7 +95,8 @@ gameplayState.prototype.create = function(){
 
 	// Set up report objects
 	this.docCorner = { x: 250 , y: 600 };
-	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
+	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, 
+		this.diseaseNames, this.solution, this.shared);
 	this.report.disable();
 };
 
@@ -165,6 +166,8 @@ gameplayState.prototype.EnableInput = function ()
 	this.surgeryScene.EnableInput();
 	this.museumScene.EnableInput();
 	this.libraryScene.EnableInput();
+	this.closeX.inputEnabled = true;
+	this.document.inputEnabled = true;
 };
 
 gameplayState.prototype.DisableInput = function ()
@@ -172,6 +175,8 @@ gameplayState.prototype.DisableInput = function ()
 	this.surgeryScene.DisableInput();
 	this.museumScene.DisableInput();
 	this.libraryScene.DisableInput();
+	this.closeX.inputEnabled = false;
+	this.document.inputEnable = false;
 };
 
 //close all window sprites

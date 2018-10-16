@@ -67,8 +67,8 @@ let Museum = function (shared)
     this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
 
     this.jarText = game.cache.getJSON("jarD"); 
-    this.pageText = game.add.existing(new Phaser.Text(game, 500, 1750, "", { 
-		font:'bold 32pt Arial', 
+    this.pageText = game.add.existing(new Phaser.Text(game, 330, 1750, "", { 
+		font:'bold 30pt Arial', 
 		wordWrap:true, 
 		wordWrapWidth:650 
 	})); 

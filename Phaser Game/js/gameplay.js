@@ -87,14 +87,24 @@ gameplayState.prototype.create = function(){
 	this.loadSurgery();
 
 	// TEMPORARY CASE STUFF; TODO REPLACE LATER
-	this.diseaseNames = ["Disease A","B Syndrome","Infection Type C"];
-	this.solution = ["B Syndrome", "Disease A", "Infection Type C"];
-	this.caseText = 'Name: Wyatt Claude\nRace: Caucasian\nAge: 45\nGender: Male\nAlignment: Farmer\nReligion: Christian\nWeight: 86.2kg\nHeight: 1.88m\n' +
-	'Background: A rural potato farmer, Wyatt was always outside in his potato farm. Most days he'+
-	'did not wear shoes and would spend all day from morning to night tending to the potatoes only'+
-	'stopping to use the bathroom and eat food. He was beginning to use the bathroom much more' +
-	'frequently in his last days. The farm was known for not using any pesticides and being all' +
-	'organic.';
+	this.diseaseNames = [
+		"Pormonary Ateriosing Malformation", "Vindincitis", "Hitamshina",
+		"Left Heart Dwarfism", "Kernsworm", "Wubwuboomp",
+		"Polyp Cystists Disease", "Guanille", "Leporchuss",
+		"Yellow Jacket Stomach Disease", "Barnyard Disease",
+		"Chun Deyahn", "Porisingai"
+	];
+	this.solution = ["Vindincitis", "Kernsworm", "Porisingai"];
+	this.caseText = ["Name: Hun-Gi “Jenkins” Kim\n\n" +
+		"Statement from his son:\n\n" +
+		"“The sickness didn’t take him all at once…\n" + 
+		"He was born 10/15/1872 with the inability to talk, we only knew never to bring him to the doctor. Grandma said when he was eight that they tried to bring him to the doctor to see why he refused to speak. Everyone had assumed he was a mute due to a form of autism but as he grew, it became ever more apparent that he could not speak however autism was not the culprit. His whole life he was on the farm, no school experience, only how to manage the farm. However whenever he tried to do the harder work with his father his heart would beat wildy because he could not keep up. Yet through all the strife he still pushed himself, taking multiple breaks at a time due to the inability to breathe properly.”\n\n" + 
+		"Darkness was coming.",                             
+		"“The first signs came when he was 34 when it was time for him to take over the farm except it was because his father had died. Two weeks after mom noticed his veins were changing color into a very faint black. Again he refused to leave the farm, violently reacting to the suggestion of seeing a doctor, throwing things around yet no words, only tears.\n" +
+		"Mother told us that after that scene when he went to their room that he could not stand. Father laid in bed for 2 hours heavily breathing before he could return back to the fields.”\n\n" +
+		"The Final Feast\n\n" +                               
+		"“My wife and I realized that dad never ate any food that wasn't grown on the potato farm. When me and my wife travelled back to her hometown in Singapore we brought back some Bak Kuh Teh. It was said that this dish’s origins trace back to an old beggar, a man who approached a shop and asked for something, anything to spare. However the owner could not spare any food or else he would not able to afford rent the next day. The owner decided to create something for the beggar though, this new dish that involves the use of leftover pork bones with an arrangement of spices to create a more affordable yet delectable choice for dinner.”"
+	];
 
 	// Set up report objects
 	this.docCorner = { x: 250 , y: 600 };

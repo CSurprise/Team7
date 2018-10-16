@@ -23,7 +23,7 @@ menu.prototype.create = function(){
     this.overlay.events.onInputDown.add(this.startGame, this);
 
     this.string = "The year is 1949, you are a medical student with a month left in the "+
-    "Pathology program of the King Edward VII College of Medicine before the college converts to the University of Milaya.\n\n Your last "+
+    "Pathology program of the King Edward VII College of Medicine before the college converts to the University of Malaya.\n\n Your last "+
     "assignment is to use all your resources in the Tan Teck Guan building to identify the cause/causes of "+
     "death of a recently deceased man born and raised in the rural parts "+
     "of Singapore.\n\n\n\nWarning\n"+

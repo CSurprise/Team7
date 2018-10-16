@@ -6,14 +6,14 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.solution = solution.slice().sort();
     this.gradeSound = game.add.audio("gradePop", 7, false);
 
-    this.textIndex = 0;
+    this.pageNumber = 0;
 
     /* CASE REPORT OBJECTS */
     this.toSubmitArrow = game.add.sprite(x + 500, y, "rightArrow");
     this.toSubmitArrow.inputEnabled = true;
     this.toSubmitArrow.events.onInputUp.add(this.toSubmit, this);
     // create the case text object
-    this.caseTextObject = game.add.existing(new Phaser.Text(game, x, y + 200, this.caseText[this.textIndex], {
+    this.caseTextObject = game.add.existing(new Phaser.Text(game, x, y + 200, this.caseText[this.pageNumber], {
 		font:'bold 20pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650
@@ -60,6 +60,7 @@ Report.prototype.disable = function ()
     this.caseTextObject.visible = false;
     for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
     this.submit.visible = false;
+    this.pageNumber = 0;
 };
 
 Report.prototype.disableInput = function ()
@@ -77,26 +78,49 @@ Report.prototype.disableInput = function ()
 
 Report.prototype.toReport = function ()
 {
-    // disable submit objects
-    this.toReportArrow.visible = false;
-    for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
-    this.submit.visible = false;
-    // enable report objects
-    this.caseTextObject.visible = true;
-    this.caseTextObject.text = this.caseText[this.textIndex];
-    this.toSubmitArrow.visible = true;
- 
+    this.pageNumber--;
+    if (this.pageNumber === 0)
+    {
+        this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toSubmitArrow.visible = true;
+    }
+    if (this.pageNumber === 1)
+    {
+        this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toReportArrow.visible = true;
+    }
+    else
+    {
+        // disable submit objects
+        this.toReportArrow.visible = false;
+        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
+        this.submit.visible = false;
+        // enable report objects
+        this.caseTextObject.visible = true;
+        this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toSubmitArrow.visible = true;
+    }
 };
 
 Report.prototype.toSubmit = function ()
 {   
-    // disable report objects
-    this.caseTextObject.visible = false;
-    this.toSubmitArrow.visible = false;
-    // enabel submit objects  
-    this.toReportArrow.visible = true;
-    for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(true); }
-    this.submit.visible = true;
+    this.pageNumber++;
+    if (this.pageNumber === 1)
+    {
+        this.caseTextObject.text = this.caseText[this.pageNumber];
+        this.toReportArrow.visible = true;
+    }
+    else 
+    {
+        // disable report objects
+        this.caseTextObject.visible = false;
+        this.toSubmitArrow.visible = false;
+        // enabel submit objects  
+        this.toReportArrow.visible = true;
+        for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(true); }
+        this.submit.visible = true;
+    }
+    
 };
 
 Report.prototype.evaluate = function ()

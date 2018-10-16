@@ -160,7 +160,7 @@ Report.prototype.end = function (result)
 {
     let grades = ["gradeF", "gradeC", "gradeB", "gradeA"];
     let outroTextPossible = [
-        "Did you even attend Tan Teck Guan?!?!?! If F is for future then your future looks like its gonna be full of Fs.",
+        "Did you even explore the Tan Teck Guan building?!?!?! If F is for future then yours is looking dim.",
         "Just remember kid, C’s get degrees. Just don't expect to get hired as a doctor anywhere important.",
         "You put the B in Bee’s knees kid. Get it? Because you got a B. Hopefully you don't contract Yellow Jacket Stomach disease because that’s a killer but you knew that already didn't you.",
         "If they made a Baywatch for Doctors, you would be on it. Why not save the world, kid?"

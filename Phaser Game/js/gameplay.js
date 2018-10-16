@@ -141,13 +141,16 @@ gameplayState.prototype.loadMuseum = function(){
 
 //button functions
 gameplayState.prototype.surgeryIconTap = function(){
-	if (!this.shared.reading) { this.buttonUp(this.surgeryIcon); this.loadSurgery(); }
+	this.buttonUp(this.surgeryIcon);
+	if (!this.shared.reading) { this.loadSurgery(); }
 }
 gameplayState.prototype.libraryIconTap = function(){
-	if (!this.shared.reading) { this.buttonUp(this.libraryIcon); this.loadLibrary(); }
+	this.buttonUp(this.libraryIcon);
+	if (!this.shared.reading) { this.loadLibrary(); }
 }
 gameplayState.prototype.museumIconTap = function(){
-	if (!this.shared.reading) { this.buttonUp(this.museumIcon); this.loadMuseum(); }
+	this.buttonUp(this.museumIcon);
+	if (!this.shared.reading) { this.loadMuseum(); }
 }
 gameplayState.prototype.docIconTap = function(){
 	this.buttonUp(this.docIcon);

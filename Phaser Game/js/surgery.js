@@ -33,7 +33,9 @@ Surgery.prototype.AddToInventory = function (sprite, pointer) {
 			sprite.scale.set(.4,.4);
 			sprite.x = this.shared.inventorySize*200 - 100;
 			sprite.y = 2220;
-			sprite.input.draggable = false;
+            sprite.input.draggable = false;
+            sprite.events.onInputDown.add(this.buttonDown, this);
+            sprite.events.onInputUp.add(this.popUp, this);
 		}
 	}    
 };
@@ -62,3 +64,19 @@ Surgery.prototype.HandleSwipe = function (swipe)
         this.surgeryObjects[i].check_cut(swipe);
     }
 };
+
+Surgery.prototype.popUp = function(sprite){
+    this.buttonUp(sprite);
+    
+}
+
+Surgery.prototype.buttonDown = function(sprite){
+	sprite.scale.set(.3,.3);
+	sprite.x += sprite.width*.1;
+	sprite.y += sprite.height*.1;
+}
+Surgery.prototype.buttonUp = function(sprite){
+	sprite.scale.set(.4, .4);
+	sprite.x -= sprite.width*.075;
+	sprite.y -= sprite.height*.075;
+}

@@ -71,6 +71,7 @@ Surgery.prototype.SetVisibility = function (vis)
     for (var i = 0; i < this.surgeryObjects.length; i++)
     {
         this.surgeryObjects[i].visible = (this.surgeryObjects[i].inventory ? true : vis);
+        this.surgeryObjects[i].cutVis(vis);
     }
 };
 

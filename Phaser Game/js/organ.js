@@ -9,6 +9,12 @@ let Organ = function (x, y, sprite, cuts, shared)
     for (i = 0; i < this.cuts.length; i++)
     {
         this.cuts[i].intact = true;
+        this.cuts[i].dotSprite = game.add.sprite(
+            this.cuts[i].x + x, this.cuts[i].y + y, "whiteLine"
+        );
+        this.cuts[i].dotSprite.anchor.set(0.5,0.5);
+        this.cuts[i].dotSprite.scale.set(0.5,0.5);
+        this.cuts[i].dotSprite.angle = -this.cuts[i].angle;
     }
 
     this.free = false;
@@ -20,6 +26,14 @@ let Organ = function (x, y, sprite, cuts, shared)
 
 // Here's where we do the extension
 Organ.prototype = Object.create(Phaser.Sprite.prototype);
+
+Organ.prototype.cutVis = function (vis)
+{
+    for (var i = 0; i < this.cuts.length; i++)
+    {
+        this.cuts[i].dotSprite.visible = (!this.cuts[i].intact ? false : vis);
+    }
+}
 
 /* Collision checking between the user's swipe and the organ's cuttable points
  * if all of them are cut, return true
@@ -70,6 +84,7 @@ Organ.prototype.check_cut = function (cut)
             {
                 //console.log("CUT");
                 this.cuts[i].intact = false;
+                this.cuts[i].dotSprite.visible = false;
             }
         }
         this.free = true;

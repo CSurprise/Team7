@@ -50,7 +50,7 @@ let Library = function (shared, bookText)
 		this.libraryObjects[i].events.onInputUp.add(this.OpenBook, this);
     }
     
-    this.pageText = game.add.existing(new Phaser.Text(game, 200, 600, "", {
+    this.pageText = game.add.existing(new Phaser.Text(game, 200, 540, "", {
 		font:'bold 32pt Arial',
 		wordWrap:true,
 		wordWrapWidth:650

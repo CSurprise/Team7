@@ -1,5 +1,6 @@
-let Report = function (x, y, caseText, diseases, solution)
+let Report = function (x, y, caseText, diseases, solution, shared)
 {
+    this.shared = shared;
     this.caseText = caseText;
     this.diseases = diseases;
     this.solution = solution.slice().sort();
@@ -31,6 +32,21 @@ let Report = function (x, y, caseText, diseases, solution)
     this.submit.inputEnabled = true;
     this.submit.events.onInputDown.add(this.buttonDown, this);
     this.submit.events.onInputUp.add(this.evaluate, this);
+
+    this.overlay = game.add.sprite(0, 0, "overlay");
+    this.overlay.visible = false;
+    this.finalText = game.add.text(game.world.width/2, game.world.height/2, "",
+        { fill: '#ffffff', fontSize:40, align:'center', wordWrapWidth: 800 }
+    );
+    this.finalText.anchor.set(0.5,0.5)
+    this.finalText.visible = false;
+
+    this.returnToMenuButton = game.add.sprite(game.world.width/2, game.world.height - 300, "submit");
+    this.returnToMenuButton.anchor.set(0.5, 0.5);
+    this.returnToMenuButton.events.onInputUp.add(function (sprite, pointer){
+        game.state.start("Menu");
+    }, this);
+    this.returnToMenuButton.visible = false;
 };
 
 Report.prototype.disable = function ()
@@ -42,6 +58,19 @@ Report.prototype.disable = function ()
     for (var i = 0; i < this.selectors.length; i++) { this.selectors[i].setVisible(false); }
     this.submit.visible = false;
 };
+
+Report.prototype.disableInput = function ()
+{
+    this.toSubmitArrow.inputEnabled = false;
+    this.toReportArrow.inputEnabled = false;
+    this.submit.inputEnabled = false;
+    for (var i = 0; i < this.selectors.length; i++)
+    {
+        this.selectors[i].leftArrow.inputEnabled = false;
+        this.selectors[i].rightArrow.inputEnabled = false;
+    }
+    this.shared.DisableInput();
+}
 
 Report.prototype.toReport = function ()
 {
@@ -84,6 +113,17 @@ Report.prototype.end = function (result)
     let grades = ["gradeF", "gradeC", "gradeB", "gradeA"];
     let index = Math.round(result*(grades.length-1));
     let grade = grades[index];
+    // do the stamp thing
+    // do the overlay
+    this.overlay.visible = true;
+    game.world.bringToTop(this.overlay);
+    this.finalText.visible = true;
+    this.finalText.text = "Congratulations! You got a " + grade + "!";
+    game.world.bringToTop(this.finalText);
+    this.returnToMenuButton.visible = true;
+    this.returnToMenuButton.inputEnabled = true;
+    game.world.bringToTop(this.returnToMenuButton);
+    this.disableInput();
 };
 
 Report.prototype.buttonDown = function(sprite){

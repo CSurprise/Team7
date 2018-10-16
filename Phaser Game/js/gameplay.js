@@ -10,6 +10,8 @@ let gameplayState = function () {};
 
 gameplayState.prototype.create = function(){
 
+	this.selectSound = game.add.audio("SelectSound", 3, false);
+
 	// A VARIABLE FOR ANYTHING THAT NEEDS TO BE SHARED BETWEEN SCENES
 	let sharedEnableInput  = () => { this.EnableInput();  };
 	let sharedDisableInput = () => { this.DisableInput(); };
@@ -95,7 +97,8 @@ gameplayState.prototype.create = function(){
 
 	// Set up report objects
 	this.docCorner = { x: 250 , y: 600 };
-	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, this.diseaseNames, this.solution);
+	this.report = new Report(this.docCorner.x, this.docCorner.y, this.caseText, 
+		this.diseaseNames, this.solution, this.shared);
 	this.report.disable();
 };
 
@@ -165,6 +168,8 @@ gameplayState.prototype.EnableInput = function ()
 	this.surgeryScene.EnableInput();
 	this.museumScene.EnableInput();
 	this.libraryScene.EnableInput();
+	this.closeX.inputEnabled = true;
+	this.document.inputEnabled = true;
 };
 
 gameplayState.prototype.DisableInput = function ()
@@ -172,6 +177,8 @@ gameplayState.prototype.DisableInput = function ()
 	this.surgeryScene.DisableInput();
 	this.museumScene.DisableInput();
 	this.libraryScene.DisableInput();
+	this.closeX.inputEnabled = false;
+	this.document.inputEnable = false;
 };
 
 //close all window sprites
@@ -197,6 +204,7 @@ gameplayState.prototype.setPos = function(sprite, X, Y){
 	sprite.y = Y;
 }
 gameplayState.prototype.buttonDown = function(sprite){
+	this.selectSound.play(); 
 	sprite.scale.set(.8,.8);
 	sprite.x += sprite.width*.1;
 	sprite.y += sprite.height*.1;

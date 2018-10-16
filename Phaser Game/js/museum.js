@@ -1,5 +1,9 @@
 let Museum = function (shared)
 {
+
+    this.jarSelectSound = game.add.audio("JarSelect", 3, false);
+    this.closeSound = game.add.audio("SelectSound", 3, false);
+
     this.shared = shared;
 
     this.museum = game.add.sprite(0,0,"museum");
@@ -94,6 +98,7 @@ Museum.prototype.DisableInput = function () { this.SetInput(false); };
 // do a curried function thing here so there's not this big case statement
 Museum.prototype.ShowJar = function(sprite, pointer) 
 {
+    this.jarSelectSound.play(); 
     this.shared.DisableInput();
     this.viewjar = null;
     for (var i = 0; i < this.museumObjects.length; i++)
@@ -112,6 +117,7 @@ Museum.prototype.ShowJar = function(sprite, pointer)
 
 Museum.prototype.CloseJar = function (sprite, pointer)
 {
+    this.closeSound.play(); 
     this.buttonUp(this.closeX);
     this.shared.EnableInput();
     this.viewjar.visible = false;

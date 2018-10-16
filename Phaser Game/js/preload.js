@@ -65,6 +65,8 @@ preloadState.prototype.preload = function(){
 	game.load.image("gradeC", "assets/Cgrade.png");
 	game.load.image("gradeB", "assets/Bgrade.png");
 	game.load.image("gradeA", "assets/Agrade.png");
+
+	game.load.image("overlay", "assets/dark_overlay.png");
 };
 
 preloadState.prototype.create = function(){

@@ -2,9 +2,7 @@ let Report = function (x, y, caseText, diseases, solution)
 {
     this.caseText = caseText;
     this.diseases = diseases;
-    this.solution = solution;
-
-    this.solution.sort();
+    this.solution = solution.slice().sort();
 
     /* CASE REPORT OBJECTS */
     this.toSubmitArrow = game.add.sprite(x + 500, y, "rightArrow");
@@ -72,10 +70,15 @@ Report.prototype.evaluate = function ()
     {
         selected.push(this.selectors[i].getSelectedDisease());
     }
-    selected.sort();
-    for (var i = 0; i < selected.length; i++)
-    {
-        if (selected[i] !== this.solution[i]) { console.log("FAILED"); return; }
-    }
-    console.log("SUCCESS!"); return;
+    selected = selected.sort();
+    let result = selected.filter(val => this.solution.indexOf(val) !== -1);
+    result = result.filter((val, index) => result.indexOf(val) === index);
+    this.end(result.length/this.solution.length);
+};
+
+Report.prototype.end = function (result)
+{
+    let grades = ["gradeF", "gradeC", "gradeB", "gradeA"];
+    let index = Math.round(result*(grades.length-1));
+    let grade = grades[index];
 };

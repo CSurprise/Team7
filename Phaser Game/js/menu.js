@@ -23,7 +23,7 @@ menu.prototype.create = function(){
     "assignment to become a doctor is to identify the cause/causes of "+
     "death of a recently deceased man born and raised in the rural parts "+
     "of Singapore.\n\n\n\n\n\nWarning\n"+
-    "This game was made by college students, not doctors. Please do not "
+    "This game was made by college students, not doctors. Please do not "+
     "try to diagnose anyone with these diseases."
     
     this.text = game.add.existing(new Phaser.Text(game, 150, 300, this.string, {

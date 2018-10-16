@@ -1,5 +1,7 @@
 let Surgery = function (shared)
 {
+    this.cutSound = game.add.audio("Cut", 3, false);
+    
     this.organ = null;
 
     this.shared = shared;
@@ -81,6 +83,7 @@ Surgery.prototype.SetInput = function (input)
 
 Surgery.prototype.HandleSwipe = function (swipe)
 {
+    this.cutSound.play();
     for (var i = 0; i < this.surgeryObjects.length; i++)
     {
         this.surgeryObjects[i].check_cut(swipe);

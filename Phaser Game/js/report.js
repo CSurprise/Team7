@@ -4,7 +4,7 @@ let Report = function (x, y, caseText, diseases, solution, shared)
     this.caseText = caseText;
     this.diseases = diseases;
     this.solution = solution.slice().sort();
-
+    this.gradeSound = game.add.audio("gradePop", 7, false);
     /* CASE REPORT OBJECTS */
     this.toSubmitArrow = game.add.sprite(x + 500, y, "rightArrow");
     this.toSubmitArrow.inputEnabled = true;
@@ -127,6 +127,7 @@ Report.prototype.end = function (result)
     gradeSprite.scale.setTo(2, 2);
     gradeSprite.angle = -35;
     gradeSprite.alpha = 0;
+    this.gradeSound.play();
     let gradeSpriteTween = game.add.tween(gradeSprite);
     gradeSpriteTween.to({alpha:1}, 500, Phaser.Easing.Quintic.In);
     gradeSpriteTween.onComplete.add(this.displayFinal, this);
@@ -137,6 +138,7 @@ Report.prototype.end = function (result)
 
 Report.prototype.displayFinal = function ()
 {
+
     game.add.tween({empty:0})
         .to({empty:0}, 750, Phaser.Easing.Linear.None, true)
         .onComplete.add(

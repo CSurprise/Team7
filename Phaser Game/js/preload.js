@@ -95,9 +95,12 @@ preloadState.prototype.preload = function(){
 	game.load.audio("BookSelect", "assets/Music/bookPoof.wav");
 	game.load.audio("PageTurn", "assets/Music/pageTurn.mp3");
 	game.load.audio("Cut", "assets/Music/cut.wav");
+	game.load.audio("gradePop", "assets/Music/gradePop.wav");
 };
 
 preloadState.prototype.create = function(){
+	this.backgroundMusic = game.add.audio("Background Music", 1, true);
+	this.backgroundMusic.play();
 	game.state.start("Menu");
 	
 };

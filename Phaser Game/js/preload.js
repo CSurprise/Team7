@@ -49,16 +49,33 @@ preloadState.prototype.preload = function(){
 
 	//zoom in sprites
 	game.load.spritesheet("booksheet", "assets/booksheet.png", 900, 1500);
-	game.load.image("viewjar1H", "assets/viewjar1HealthyHeart.png");
-	game.load.image("viewjar2H", "assets/viewjar2HealthyLungs.png");
-	game.load.image("viewjar3H", "assets/viewjar3HealthyLiver.png");
-	game.load.image("viewjar4H", "assets/viewjar4HealthyStomach.png");
-	game.load.image("viewjar5H", "assets/viewjar5HealthyIntestines.png");
 	game.load.image("heartSick", "assets/SickHeartZoom1.png");
 	game.load.image("lungsSick", "assets/SickLungsZoom.png");
 	game.load.image("liverSick", "assets/SickLiverZoom.png");
 	game.load.image("stomachSick", "assets/SickStomachZoom.png");
 	game.load.image("intestinesSick", "assets/SickIntestinesZoom1.png");
+
+	//jarview sprites
+	game.load.image("viewjar11", "assets/viewjar1HealthyHeart.png");
+	game.load.image("viewjar12", "assets/viewjar1SickHeart.png");
+	game.load.image("viewjar13", "assets/viewjar1SickHeart1.png");
+	game.load.image("viewjar21", "assets/viewjar2HealthyLungs.png");
+	game.load.image("viewjar22", "assets/viewjar2SickLungs.png");
+	game.load.image("viewjar23", "assets/viewjar2SickLungs1.png");
+	game.load.image("viewjar24", "assets/viewjar2SickLungs2.png");
+	game.load.image("viewjar31", "assets/viewjar3HealthyLiver.png");
+	game.load.image("viewjar32", "assets/viewjar3SickLiver.png");
+	game.load.image("viewjar33", "assets/viewjar3SickLiver1.png");
+	game.load.image("viewjar41", "assets/viewjar4HealthyStomach.png");
+	game.load.image("viewjar42", "assets/viewjar4SickStomach.png");
+	game.load.image("viewjar43", "assets/viewjar4SickStomach1.png");
+	game.load.image("viewjar44", "assets/viewjar4SickStomach2.png");
+	game.load.image("viewjar51", "assets/viewjar5HealthyIntestines.png");
+	game.load.image("viewjar52", "assets/viewjar5SickIntestines.png");
+	game.load.image("viewjar53", "assets/viewjar5SickIntestines1.png");
+	game.load.image("viewjar1", "assets/viewjar1.png");
+	game.load.image("viewjar3", "assets/viewjar3.png");
+	game.load.image("viewjar5", "assets/viewjar5.png");
 
 	//json data
 	game.load.json("bookD", "assets/LevelData/bookData.json");

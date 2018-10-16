@@ -42,29 +42,29 @@ let Museum = function (shared)
     
     this.uiJars = [];
     //layer1
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar11"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar31"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar12"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar21"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar51"));
     //layer2
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar41"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar42"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar32"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar13"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar52"));
     //layer3
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar53"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar43"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar22"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar33"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar23"));
     //layer4
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar2H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3H"));
-	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar4H"));
-    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5H"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar44"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar1"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar24"));
+	this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar3"));
+    this.uiJars.push(game.add.sprite(game.world.width/2, game.world.height/2, "viewjar5"));
 
     this.jarText = game.cache.getJSON("jarD"); 
     this.pageText = game.add.existing(new Phaser.Text(game, 330, 1750, "", { 

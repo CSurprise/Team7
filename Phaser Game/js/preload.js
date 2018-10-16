@@ -12,6 +12,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("museum", "assets/museum.png");
 	game.load.image("document", "assets/document.png");
 	game.load.image("libraryFront", "assets/libraryFront.png");
+	game.load.image("startMenu", "assets/start.png");
 
 	//UI sprites
 	game.load.image("inventory", "assets/inventory.png");
@@ -23,6 +24,8 @@ preloadState.prototype.preload = function(){
 	game.load.image("closeX", "assets/closeX.png");
 	game.load.image("rightArrow", "assets/rightArrow.png");
 	game.load.image("leftArrow", "assets/leftArrow.png");
+	game.load.image("mainStartButton", "assets/startBotton.png");
+	game.load.image("submit", "assets/submit.png");
 
 	//object sprites
 	game.load.image("heart", "assets/heart.png");
@@ -43,17 +46,17 @@ preloadState.prototype.preload = function(){
 
 	//spritesheets and jars
 	game.load.spritesheet("booksheet", "assets/booksheet.png", 900, 1500);
-	game.load.image("viewjar1", "assets/viewjar1.png");
-	game.load.image("viewjar2", "assets/viewjar2.png");
-	game.load.image("viewjar3", "assets/viewjar3.png");
-	game.load.image("viewjar4", "assets/viewjar4.png");
-	game.load.image("viewjar5", "assets/viewjar5.png");
+	game.load.image("viewjar1H", "assets/viewjar1HealthyHeart.png");
+	game.load.image("viewjar2H", "assets/viewjar2HealthyLungs.png");
+	game.load.image("viewjar3H", "assets/viewjar3HealthyLiver.png");
+	game.load.image("viewjar4H", "assets/viewjar4HealthyStomach.png");
+	game.load.image("viewjar5H", "assets/viewjar5HealthyIntestines.png");
 	game.load.json("bookD", "assets/LevelData/bookData.json");
 	game.load.json("jarD", "assets/LevelData/jarText.json");
 };
 
 preloadState.prototype.create = function(){
-	game.state.start("Game");
+	game.state.start("Menu");
 	
 };
 

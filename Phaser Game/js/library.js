@@ -59,7 +59,7 @@ let Library = function (shared, bookText)
 };
 
 Library.prototype.OpenBook = function (sprite, pointer)
-{ // TODO fix
+{
 	this.shared.DisableInput();
     this.booksheet.visible = true;
 	this.closeX.visible = true;

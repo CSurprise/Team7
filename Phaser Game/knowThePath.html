@@ -1,39 +1,53 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
-	<title>AUTOPSY GAME</title>
-	
+	<title>Know the Path</title>
+
+
 	<script type="text/javascript" src="js/lib/phaser.min.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
-    <script type="text/javascript" src="js/organ.js"></script>
+  <script type="text/javascript" src="js/organ.js"></script>
 	<script type="text/javascript" src="js/gameplay.js"></script>
 	<script type="text/javascript" src="js/diseaseSelector.js"></script>
 	<script type="text/javascript" src="js/report.js"></script>
 	<script type="text/javascript" src="js/surgery.js"></script>
 	<script type="text/javascript" src="js/museum.js"></script>
 	<script type="text/javascript" src="js/library.js"></script>
-	
-    <style type="text/css">
-        body {
-		    margin: 0 auto;
-		    background-color: #304070
-	    }
-    </style>
+
+
+	<link rel="stylesheet" href="styles.css">
+
 </head>
+<header>
+	<span>
+		<img src="../../../headshot.PNG" width="100" height="100">
+
+	<h1> Know the Path </h1>
+	</span>
+	<div class="contactInfo">
+		<button><a href="../../../Cover.html">Front Page</a></button>
+		<button><a href="../../../itsearch.html">Information Technology and Web Sciences labs</a></button>
+		<button><a href="../../../gamesearch.html">Game Simulations Arts and Sciences projects</a></button>
+
+	</div>
+</header>
 <body>
-
-    <script type="text/javascript">
-
-	let game = new Phaser.Game(1125, 2436, Phaser.AUTO);
-
-	game.state.add("Preload", preloadState);
-	game.state.add("Menu", menu);
-	game.state.add("Game", gameplayState);
-	game.state.start("Preload");
-
-</script>
+	<div id="fluff" style="width: 800px; height: 600px">
+		<div id="scale">
+			  <script type="text/javascript">
+					let game = new Phaser.Game(1125, 2436, Phaser.AUTO, "fluff", {init: init});
+					game.state.add("Preload", preloadState);
+					game.state.add("Menu", menu);
+					game.state.add("Game", gameplayState);
+					game.state.start("Preload");
+					function init() {
+						game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+						}
+			  </script>
+		</div>
+	</div>
 
 </body>
 </html>
